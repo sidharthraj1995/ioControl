@@ -6,8 +6,13 @@
 #define A_RTC_CONFIG_h
 
 #include <Arduino.h>
-#include <ControlIO.h>
 #include <Ticker.h>
+
+/* All custom headers below */
+#include <enum.h>
+#include <ControlIO.h>
+#include <Logging.h>
+#include <Sensor.h>
 
 /**************************
  * WRITE CUSTOM SHIT BELOW *

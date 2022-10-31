@@ -7,6 +7,7 @@
 
 #include <Arduino.h>
 #include <ControlIO.h>
+#include <enum.h>
 
 /***************************************
  *     THIS IS GENERAL IO LIBRARY,     *

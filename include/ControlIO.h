@@ -6,6 +6,8 @@
 #define A_CONTROLIO_h
 
 #include <Arduino.h>
+#include <Logging.h>
+#include <enum.h>
 
 /**************************
  * GENERAL LOGICAL STATES *
@@ -35,16 +37,5 @@
  **********************/
 #define AIO_II DIO_OFF
 
-/******************
- * GENERAL STATES *
- ******************/
-enum ioStates
-{
-    STS_ON = 0,
-    STS_OFF,
-    STS_OK,
-    STS_EN,
-    STS_ERR
-};
 
 #endif

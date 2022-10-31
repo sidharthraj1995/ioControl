@@ -3,6 +3,7 @@
  *      * AND IMPROVE PROGRAMMING SKILLS      *
  **********************************************/
 #include <Arduino.h>
+#include <rtc_config.h>
 
 #define ONBOARD_LED 2
 
