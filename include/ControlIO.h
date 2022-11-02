@@ -66,7 +66,7 @@ enum netState
     NET_STS_FAILED        // Network Status Failed
 };
 
-enum portType {
+enum ioType {
     TYPE_INPUT = 0,
     TYPE_OUTPUT
 };
