@@ -12,30 +12,30 @@
 /**************************
  * GENERAL LOGICAL STATES *
  **************************/
-#define DIO_LOW 0
-#define DIO_HIGH 1
+#define DIO_LOW     0
+#define DIO_HIGH    1
 
 /*****************************
  * GENERAL DIGITAL IO STATES *
  *****************************/
-#define DIO_ON_II DIO_HIGH
-#define DIO_OFF_II DIO_LOW
-#define DIO_LE_II DIO_LOW // Transition from OFF to ON
-#define DIO_TE_II DIO_HIGH  // Transition from ON to OFF
+#define DIO_ON_II   DIO_HIGH
+#define DIO_OFF_II  DIO_LOW
+#define DIO_LE_II   DIO_LOW // Transition from OFF to ON
+#define DIO_TE_II   DIO_HIGH  // Transition from ON to OFF
 
 /****************************
  * GENERAL NC AND NO STATES *
  ****************************/
-#define DIO_NO_ON_II DIO_HIGH
-#define DIO_NO_OFF_II DIO_LOW
+#define DIO_NO_ON_II    DIO_HIGH
+#define DIO_NO_OFF_II   DIO_LOW
 
-#define DIO_NC_ON_II DIO_LOW
-#define DIO_NC_OFF_II DIO_HIGH
+#define DIO_NC_ON_II    DIO_LOW
+#define DIO_NC_OFF_II   DIO_HIGH
 
 /**********************
  * GENERAL ANALOG IOS *
  **********************/
-#define AIO_II DIO_LOW
+#define AIO_II  DIO_LOW
 
 
 

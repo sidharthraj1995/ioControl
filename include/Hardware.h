@@ -9,6 +9,11 @@
 #include "enum.h"
 #include "ControlIO.h"
 
+
+/******************************
+ * MASTER CLASS THAT CONTROLS *
+ *   MOST OF THE OPERATIONS   *
+ ******************************/
 class CController
 {
 private:
@@ -43,6 +48,45 @@ public:
     bool Register(uint16_t Pin, byte Type);
 };
 
+
+typedef struct
+{
+    /* data */
+} MASTER_HARDWARE;
+
+
+typedef struct
+{
+    /* data */
+} MASTER_CONTROLLERS;
+
+typedef struct
+{
+    /* data */
+} MASTER_CONTROLLER;
+
+
+typedef struct
+{
+    /* data */
+} CONTROL_IO;
+
+typedef struct
+{
+    /* data */
+} CONTROLLER_DESC;
+
+typedef struct
+{
+    /* data */
+} IO_DESC;
+
+
+
+typedef struct
+{
+    /* data */
+} CONTROLLER_NETWORK;
 
 
 

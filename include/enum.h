@@ -22,27 +22,6 @@
 #define MAX_CTL_QTY 5
 #define MAX_SENSOR_QTY 5
 
-/******************
- * LOGGING STATES *
- ******************/
-enum loggingState {
-    LOG_NONE = 0,
-    LOG_ENABLED,        // Logging Enabled
-    LOG_DISABLED,       // Logging Disabled
-    LOG_ERR             // Logging Error
-};
-
-/***********************
- * GENERAL ALERT TYPES *
- ***********************/
-enum alertType {
-    ALERT_DEFAULT = 0,
-    ALERT_PULSE_SLOW,
-    ALERT_PULSE_FAST,
-    ALERT_ON,
-    ALERT_OFF,
-    ALERT_NONE
-};
 
 /***************************
  * LIST ALL THE CONTROLLER *
