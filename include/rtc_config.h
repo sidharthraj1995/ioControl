@@ -9,14 +9,23 @@
 #include <Ticker.h>
 
 /* All custom headers below */
-#include <enum.h>
-#include <ControlIO.h>
-#include <Logging.h>
-#include <Sensor.h>
+#include "enum.h"
+#include "ControlIO.h"
+#include "Logging.h"
+#include "StartStop.h"
+
 
 /**************************
  * WRITE CUSTOM SHIT BELOW *
  **************************/
 
+
+
+
+/***************************************************
+ * THIS FILE SHOULD CONTAIN WHAT THE PROJECT NEEDS *
+ *  INCLUDE ALL THE FUNCTIONS/FEATURES NEEDED FOR  *
+ *                  YOUR PROJECT                   *
+ ***************************************************/
 
 #endif
