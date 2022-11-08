@@ -28,7 +28,7 @@
  *          BELOW          *
  ***************************/
 enum CTL_LIST {
-    CTL_DEFAULT = 0,
+    CTL_LIST_DEFAULT = 0,
     CTL_00_ESP8266,         // ESP8266 devKit TEST
     // CTL_01_NONE,
     // CTL_02_NONE

@@ -10,84 +10,52 @@
 #include "ControlIO.h"
 
 
-/******************************
- * MASTER CLASS THAT CONTROLS *
- *   MOST OF THE OPERATIONS   *
- ******************************/
+/***************************
+ * MASTER CONTROLLER CLASS *
+ * REGISTERS CONTROLLER SO *
+ *  SENSORS CAN BE ADDED   *
+ ***************************/
 class CController
 {
 private:
-    CTL_LIST _Controllers;
-    uint16_t _qtyController;
-    uint16_t _qtySensor;
-    controllerType _typeCTL;
+    uint16_t _idxController;
 
+    controllerType _type;
+    uint16_t _totalPinsUsed;
 public:
-    CController(/* args */);
+    CController();
     ~CController();
     bool Init();
-    bool Register(String ctlName, controllerType ctlType, uint16_t sensors);
-    bool AddSensor();
-    
-    String ctlName;
+    bool Register(OBJ_CONTROLLER* Controller);
+    bool PostRegister(); // todo  Figure out how to validate after registering or do we validate while registering?
+
+    char ctlName[MAX_CTL_NAME];
     bool bInited;
-    bool bValidated; 
+    bool bRegistered;
 };
 
-
-
+/* SENSOR CLASS WHICH REGISTERS
+AND TRACKS SENSORS ON A CONTROLLER */
 class CSensor
 {
 private:
-    uint16_t _pinSensor;
-    nodeType SensorType;
+    uint16_t _sensorPin;    // Pin of the sensor
+    nodeType _signalType; // Analog or Digital
+    ioType _sensorType;   // Input or Output
+    CTL_LIST _senCTL;       // Attached Controller
+
 public:
-    CSensor(/* args */);
+    CSensor();
     ~CSensor();
     bool Init();
-    bool Register(uint16_t Pin, byte Type);
+    bool Register(OBJ_SENSOR* Sensor);
+    bool PostRegister();
+    bool setMode();
+
+    char senName[MAX_SENSOR_NAME];
+    bool bInited;
+    bool bRegistered;
 };
-
-
-typedef struct
-{
-    /* data */
-} MASTER_HARDWARE;
-
-
-typedef struct
-{
-    /* data */
-} MASTER_CONTROLLERS;
-
-typedef struct
-{
-    /* data */
-} MASTER_CONTROLLER;
-
-
-typedef struct
-{
-    /* data */
-} CONTROL_IO;
-
-typedef struct
-{
-    /* data */
-} CONTROLLER_DESC;
-
-typedef struct
-{
-    /* data */
-} IO_DESC;
-
-
-
-typedef struct
-{
-    /* data */
-} CONTROLLER_NETWORK;
-
 
 
 #endif
