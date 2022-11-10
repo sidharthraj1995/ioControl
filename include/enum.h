@@ -22,6 +22,33 @@
 #define MAX_CTL_QTY 5
 #define MAX_SENSOR_QTY 5
 
+/******************
+ * GENERAL STATES *
+ ******************/
+enum ioState
+{
+    STS_DEFAULT = 0,
+    STS_ON,  // Status ON
+    STS_OFF, // Status OFF
+    STS_OK,  // Status OK
+    STS_EN,  // Status Enabled
+    STS_ERR  // Status Error
+};
+
+/**************************
+ * GENERAL NETWORK STATES *
+ **************************/
+enum netState
+{
+    NET_STS_DEFAULT = 0,
+    NET_STS_ON,           // Network Status ON
+    NET_STS_OFF,          // Network Status OFF
+    NET_STS_DISABLED,     // Network Status Disabled
+    NET_STS_ERR,          // Network Status Error
+    NET_STS_DISCONNECTED, // Network Status Disconnected
+    NET_STS_FAILED        // Network Status Failed
+};
+
 
 /***************************
  * LIST ALL THE CONTROLLER *

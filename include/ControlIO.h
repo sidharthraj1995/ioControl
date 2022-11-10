@@ -9,6 +9,8 @@
 #include <Logging.h>
 #include <enum.h>
 
+/* DO NOT CHANGE ANY DEFINEs BELOW */
+
 /**************************
  * GENERAL LOGICAL STATES *
  **************************/
@@ -46,32 +48,6 @@
 // Max quantity of allowed sensors to be connected to a controller simulteneously
 #define MAX_QTY_SENSOR 5
 
-/******************
- * GENERAL STATES *
- ******************/
-enum ioState
-{
-    STS_DEFAULT = 0,
-    STS_ON,  // Status ON
-    STS_OFF, // Status OFF
-    STS_OK,  // Status OK
-    STS_EN,  // Status Enabled
-    STS_ERR  // Status Error
-};
-
-/**************************
- * GENERAL NETWORK STATES *
- **************************/
-enum netState
-{
-    NET_STS_DEFAULT = 0,
-    NET_STS_ON,           // Network Status ON
-    NET_STS_OFF,          // Network Status OFF
-    NET_STS_DISABLED,     // Network Status Disabled
-    NET_STS_ERR,          // Network Status Error
-    NET_STS_DISCONNECTED, // Network Status Disconnected
-    NET_STS_FAILED        // Network Status Failed
-};
 
 enum ioType
 {
@@ -140,7 +116,7 @@ typedef struct
 {
     char Name[MAX_CTL_NAME]; // Name of the Controller
     controllerType Type;     // Type of Controller
-    uint16_t pinsUsed;       // Total Number of GPIO pins used
+    uint16_t pinsUsed;       // Total Number of GPIO pins used, set to -1 for no sensors
 } OBJ_CONTROLLER;
 
 // todo  finish this struct, add all info and organize it

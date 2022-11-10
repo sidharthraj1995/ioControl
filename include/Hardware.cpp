@@ -17,6 +17,7 @@ CController::CController()
     _idxController = -1;
     bInited = false;
     bRegistered = false;
+    _bHasSensor = false;
 }
 
 /* CController Deconstructor */
@@ -45,6 +46,12 @@ bool CController::Register(OBJ_CONTROLLER* Controller) {
         bRegistered = true;
         return true;
     }
+}
+
+bool CController::CheckHasSensor() {
+    if(bInited && (_totalPinsUsed >= 0))
+        return (_bHasSensor = true);
+    return false;
 }
 //------------- Controller Definition END ------------------//
 
