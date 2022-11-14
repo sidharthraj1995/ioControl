@@ -6,8 +6,8 @@
 
 /**==============================================
  *                List of Enumerations
- *  1. ioStates
- *  2. netStates
+ *  1. IO_STATEs
+ *  2. NET_STATEs
  *  3. pinTypes
  *  
  *  
@@ -25,7 +25,7 @@
 /******************
  * GENERAL STATES *
  ******************/
-enum ioState
+enum IO_STATE
 {
     STS_DEFAULT = 0,
     STS_ON,  // Status ON
@@ -38,7 +38,7 @@ enum ioState
 /**************************
  * GENERAL NETWORK STATES *
  **************************/
-enum netState
+enum NET_STATE
 {
     NET_STS_DEFAULT = 0,
     NET_STS_ON,           // Network Status ON
@@ -47,6 +47,28 @@ enum netState
     NET_STS_ERR,          // Network Status Error
     NET_STS_DISCONNECTED, // Network Status Disconnected
     NET_STS_FAILED        // Network Status Failed
+};
+
+/***********************
+ * GENERAL ALERT TYPES *
+ ***********************/
+enum ALERT_TYPE {
+    ALERT_DEFAULT = 0,
+    ALERT_PULSE_SLOW,
+    ALERT_PULSE_FAST,
+    ALERT_ON,
+    ALERT_OFF,
+    ALERT_NONE
+};
+
+/******************
+ * LOGGING STATES *
+ ******************/
+enum LOG_STATE {
+    LOG_NONE = 0,
+    LOG_ENABLED,        // Logging Enabled
+    LOG_DISABLED,       // Logging Disabled
+    LOG_ERR             // Logging Error
 };
 
 

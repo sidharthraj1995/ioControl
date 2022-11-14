@@ -19,7 +19,7 @@ class CController
 private:
     uint16_t _idxController;
 
-    controllerType _type;
+    CONTROLLER_TYPE _type;
     uint16_t _totalPinsUsed;
     bool _bHasSensor;
 
@@ -49,16 +49,18 @@ AND TRACKS SENSORS ON A CONTROLLER */
 class CSensor
 {
 private:
+    uint16_t _idxSensor;
+    
     uint16_t _sensorPin;  // Pin of the sensor
-    nodeType _signalType; // Analog or Digital
-    ioType _sensorType;   // Input or Output
+    NODE_TYPE _signalType; // Analog or Digital
+    IO_TYPE _sensorType;   // Input or Output
     CTL_LIST _senCTL;     // Attached Controller
 
 public:
     CSensor();
     ~CSensor();
     bool Init();
-    bool Register(OBJ_SENSOR *Sensor);
+    bool Register(OBJ_IO* pControlIO);
     bool PostRegister();
     bool setMode();
 

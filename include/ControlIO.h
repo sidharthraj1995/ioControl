@@ -6,24 +6,31 @@
 #define A_CONTROLIO_h
 
 #include <Arduino.h>
-#include <Logging.h>
-#include <enum.h>
+#include "enum.h"
 
 /* DO NOT CHANGE ANY DEFINEs BELOW */
 
 /**************************
  * GENERAL LOGICAL STATES *
  **************************/
-#define DIO_LOW 0
-#define DIO_HIGH 1
+#define DIO_LOW     0
+#define DIO_HIGH    1
 
-/*****************************
- * GENERAL DIGITAL IO STATES *
- *****************************/
-#define DIO_ON_II DIO_HIGH
-#define DIO_OFF_II DIO_LOW
-#define DIO_LE_II DIO_LOW  // Transition from OFF to ON
-#define DIO_TE_II DIO_HIGH // Transition from ON to OFF
+/********************************
+ * GENERAL DIGITAL INPUT STATES *
+ ********************************/
+#define DIO_ON_II   DIO_HIGH
+#define DIO_OFF_II  DIO_LOW
+#define DIO_LE_II   DIO_LOW  // Transition from OFF to ON
+#define DIO_TE_II   DIO_HIGH // Transition from ON to OFF
+
+/*********************************
+ * GENERAL DIGITAL OUTPUT STATES *
+ *********************************/
+#define DIO_ON_IO   DIO_HIGH
+#define DIO_OFF_IO  DIO_LOW
+#define DIO_LE_IO   DIO_LOW  // Transition from OFF to ON
+#define DIO_TE_IO   DIO_HIGH // Transition from ON to OFF
 
 /****************************
  * GENERAL NC AND NO STATES *
@@ -49,7 +56,7 @@
 #define MAX_QTY_SENSOR 5
 
 
-enum ioType
+enum IO_TYPE
 {
     TYPE_DEFAULT = 0,
     TYPE_INPUT,
@@ -59,7 +66,7 @@ enum ioType
 /******************
  * GPIO PORT TYPES *
  ******************/
-enum portType
+enum PORT_TYPE
 {
     PORT_DEFAULT = 0,
     PORT_DIN,  // Digital Input
@@ -81,7 +88,7 @@ enum PIN_MODE
 /**************************
  * GENERAL HARDWARE TYPES *
  **************************/
-enum controllerType
+enum CONTROLLER_TYPE
 {
     CTL_DEFAULT = 0,
     CTL_GENERAL,         // Hardware Type General
@@ -99,7 +106,7 @@ enum controllerType
 /*************************
  *  GENERAL NODE TYPES   *
  *************************/
-enum nodeType
+enum NODE_TYPE
 {
     NODE_DEFAULT = 0,
     NODE_DIGITAL,
@@ -111,23 +118,48 @@ enum nodeType
  * TO DEFINE CONTROLLERS *
  *      AND SENSORS      *
  *************************/
-// todo  this struct needs more variables and information
 typedef struct
 {
-    char Name[MAX_CTL_NAME]; // Name of the Controller
-    controllerType Type;     // Type of Controller
-    uint16_t pinsUsed;       // Total Number of GPIO pins used, set to -1 for no sensors
+    char                Name[MAX_CTL_NAME]; // Name of the Controller
+    CONTROLLER_TYPE     Type;    // Type of Controller
+    uint16_t            pinsUsed;       // Total Number of GPIO pins used, set to -1 for no sensors
+    OBJ_SYS_CONTROLLER* pSysCtl;
 } OBJ_CONTROLLER;
 
-// todo  finish this struct, add all info and organize it
 typedef struct
 {
-    char Name[MAX_SENSOR_NAME]; // Name of the sensor
-    ioType SensorType;          // Type: Input or output
-    nodeType SignalType;        // Digital or Analog
-    CTL_LIST masterCTL;         // Connected Controller
-    byte PIN;                   // Connected PIN
-    PIN_MODE senMode;           // Specific the mode type
-} OBJ_SENSOR;
+    uint16_t        idxCTL;
+    LOG_STATE       logging;
+} OBJ_SYS_CONTROLLER;
+
+typedef struct
+{
+    char            Name[MAX_SENSOR_NAME];  // Name of the sensor
+    byte            PIN;                    // Connected PIN
+    PORT_TYPE       portType;
+    PIN_MODE        pinMode;                // Specific the mode type
+    CTL_LIST        masterCTL;              // Connected Controller
+    OBJ_SYS_IO*     pSysIO;
+} OBJ_IO;
+
+typedef struct
+{
+    uint16_t    idxIO;
+    IO_STATE    currentState;
+    IO_TYPE     ioType;             // Type: Input or output
+    NODE_TYPE   SignalType;             // Digital or Analog
+} OBJ_SYS_IO;
+
+typedef struct {
+
+} OBJ_SYSTEM;
+
+typedef struct {
+
+} OBJ_MODULE;
+
+
+
+
 
 #endif

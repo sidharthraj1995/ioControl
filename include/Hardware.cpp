@@ -85,7 +85,7 @@ bool CSensor::Init() {
 
 /* CSensor Register 
 Sets all required values after checking for Init */
-bool CSensor::Register(OBJ_SENSOR* Sensor) {
+bool CSensor::Register(OBJ_IO* Sensor) {
     if(!bInited) {
         Serial.printf("Sensor: %s cannot be registered, check for Init!", Sensor->Name);
         return false;
