@@ -1,0 +1,19 @@
+<mxfile host="65bd71144e">
+    <diagram id="kurxsoHlH0Lcb_v7P1a_" name="Page-1">
+        <mxGraphModel dx="946" dy="1040" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="2" value="what is the goal here?" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="25" y="70" width="130" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="Controller" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="140" y="180" width="300" height="180" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="Sensor&lt;br&gt;attachment&lt;br&gt;module" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="170" y="290" width="120" height="60" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
