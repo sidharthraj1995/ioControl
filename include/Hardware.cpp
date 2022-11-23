@@ -8,124 +8,86 @@
 #include "Hardware.h"
 
 
+//------------- System Definition START ------------------//
+
+/* CController Class Constructor 
+Sets all values to default */
+CSystem::CSystem()
+{
+    bInit = false;
+    bRegistered = false;
+}
+
+CSystem::~CSystem()
+{
+    Serial.println("Congrats you messed up and called the deconstructor!!");
+}
+
+bool CSystem::Init() {
+    bInit = true;
+    Serial.println("Time to Init() your system class, this is required for controller and devices attached to it!");
+}
+
+bool CSystem::Register() {
+}
+
+//------------- System Definition END ------------------//
+
+
+
 //------------- Controller Definition START ------------------//
 
 /* CController Class Constructor 
 Sets all values to default */
 CController::CController()
 {
-    _idxController = -1;
-    bInited = false;
+    bInit = false;
     bRegistered = false;
-    _bHasSensor = false;
 }
 
-/* CController Deconstructor */
 CController::~CController()
 {
-    Serial.printf("Controller: %s Destroyed!! Congrats - Not defined yet\n", ctlName);
+    Serial.println("CController() deconstructor called! Well done!");
 }
 
-/* CController Init 
-Sets init flag for Register logic to process */
-bool CController::Init() {
-    bInited = true;
-    return true;
+bool CController::Init(OBJ_CONTROLLER* ctl) {
+    pCtl = *ctl;
+    
+    bInit = true;
 }
 
-/* CController Register 
-Copies all the required parameters for further processing */
-bool CController::Register(OBJ_CONTROLLER* Controller) {
-    if(!bInited) {
-        Serial.printf("Controller: %s cannot be registered, pls Init controller.\n", ctlName);
-        return false;
-    } else {
-        strcpy(ctlName, Controller->Name);
-        _type = Controller->Type;
-        _totalPinsUsed = Controller->pinsUsed;
-        bRegistered = true;
-        return true;
-    }
+bool CController::Register() {
+
 }
 
-bool CController::CheckHasSensor() {
-    if(bInited && (_totalPinsUsed >= 0))
-        return (_bHasSensor = true);
-    return false;
-}
 //------------- Controller Definition END ------------------//
 
 
-//------------- Sensor Definition START ------------------//
+
+
+
+
+
+//------------- DeviceIO Definition START ------------------//
 /* CSensor Constructor 
 Sets various values to default */
-CSensor::CSensor()
+
+CDeviceIO::CDeviceIO()
 {
-    _sensorPin = -1;
-    _signalType = NODE_DEFAULT;
-    _sensorType = TYPE_DEFAULT;
-    _senCTL = CTL_LIST_DEFAULT;
-    bInited = false;
-    bRegistered = false;
+    bInit = false;
+    bRegister = false;
+
+    QtyDevices = -1;        // THINK! what? why?
 }
 
-/* CSensor Deconstructor */
-CSensor::~CSensor()
+CDeviceIO::~CDeviceIO()
 {
-    Serial.printf("Sensor: %s Destroyed!! Congrats you did it!\n", senName);
-}
-
-/* CSensor Init 
-Sets init flag for Register logic to process */
-bool CSensor::Init() {
-    bInited = true;
-    return true;
+    Serial.println("CDeviceIO() deconstructor called, enjoy!");
 }
 
 
-/* CSensor Register 
-Sets all required values after checking for Init */
-bool CSensor::Register(OBJ_IO* Sensor) {
-    if(!bInited) {
-        Serial.printf("Sensor: %s cannot be registered, check for Init!", Sensor->Name);
-        return false;
-    } else {
-        _sensorPin = Sensor->PIN;
-        _signalType = Sensor->SignalType;
-        _sensorType = Sensor ->SensorType;
-        _senCTL = Sensor->masterCTL;
-
-        bRegistered = true;
-        return true;
-    }
-}
-
-bool CSensor::PostRegister() {
-    if(_senCTL != CTL_LIST_DEFAULT && bRegistered) {
-        //todo  Do some shit here, call setMode and validate 
-    }
-}
 
 
-/* CSensor setMode 
-Checks for type of sensor and sets the Pin Mode accordingly
-INPUT or OUTPUT */
-bool CSensor::setMode() {
-    switch (_sensorType)
-    {
-    case TYPE_INPUT:
-        pinMode(_sensorPin, INPUT);
-        Serial.printf("Sensor: %s, Mode set to INPUT", senName);
-        break;
-    case TYPE_OUTPUT:
-        pinMode(_sensorPin, OUTPUT);
-        Serial.printf("Sensor: %s, Mode set to OUTPUT", senName);
-
-    default:
-        Serial.println("Eat shit, default type is BAD!!");
-        break;
-    }
-}
 
 
-//------------- Sensor Definition END ------------------//
+//------------- DeviceIO Definition END ------------------//

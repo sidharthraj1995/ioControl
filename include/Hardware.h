@@ -8,65 +8,82 @@
 #include <Arduino.h>
 #include "enum.h"
 #include "ControlIO.h"
+#include "ObjRtc.h"
 
-/***************************
- * MASTER CONTROLLER CLASS *
- * REGISTERS CONTROLLER SO *
- *  SENSORS CAN BE ADDED   *
- ***************************/
+/* How do you wanna approach this? have a master class and then derive controller
+and deviceIO CLASS out of it?
+how do you want to handle deviceIO  ---->> it needs to be forked into II and IO
+
+what is shared between these class? why use inheritence?
+
+ */
+
+/***************************************************
+ *                  CLASS SYSTEM                   *
+ * THIS IS THE MASTER CLASS THAT HOLDS CONTROLLERS *
+ *                  AND DEVICEIOS                  *
+ ***************************************************/
+class CSystem
+{
+private:
+    bool bInit;
+    bool bRegistered;
+
+public:
+    CSystem();
+    ~CSystem();
+    bool Init();
+    bool Register();
+
+    // OBJ_CONTROLLER* pCTL;
+};
+
+
+
 class CController
 {
 private:
-    uint16_t _idxController;
-
-    CONTROLLER_TYPE _type;
-    uint16_t _totalPinsUsed;
-    bool _bHasSensor;
+    
+protected:
+    OBJ_CONTROLLER* pCtl;
 
 public:
     CController();
     ~CController();
-    bool Init();
-    bool Register(OBJ_CONTROLLER *Controller);
-    bool PostRegister(); // todo  Figure out how to validate after registering or do we validate while registering?
-    bool CheckHasSensor();
+    bool Init(OBJ_CONTROLLER* ctl);
+    bool Register();
 
-    char ctlName[MAX_CTL_NAME];
-    bool bInited;
+    bool ValidateController();      // Method used to validate controller defined parameters
+
+    bool bInit;
     bool bRegistered;
 };
 
 
-
-
-
-
-
-
-
-/* SENSOR CLASS WHICH REGISTERS
-AND TRACKS SENSORS ON A CONTROLLER */
-class CSensor
+/* THis is where you define your Devices
+and IOs.
+Derived class */ 
+class CDeviceIO: public CController
 {
 private:
-    uint16_t _idxSensor;
+    bool bInit;
+    bool bRegister;
     
-    uint16_t _sensorPin;  // Pin of the sensor
-    NODE_TYPE _signalType; // Analog or Digital
-    IO_TYPE _sensorType;   // Input or Output
-    CTL_LIST _senCTL;     // Attached Controller
+protected:
+
 
 public:
-    CSensor();
-    ~CSensor();
+    CDeviceIO();
+    ~CDeviceIO();
     bool Init();
-    bool Register(OBJ_IO* pControlIO);
-    bool PostRegister();
-    bool setMode();
+    
 
-    char senName[MAX_SENSOR_NAME];
-    bool bInited;
-    bool bRegistered;
+    uint16_t    QtyDevices;
 };
+
+
+
+
+
 
 #endif

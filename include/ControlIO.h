@@ -46,14 +46,13 @@
  **********************/
 #define AIO_II DIO_LOW
 
-// Length of Controller Name string
-#define MAX_CTL_NAME 10
 
-// Length of Sensor Name string
-#define MAX_SENSOR_NAME 10
-
-// Max quantity of allowed sensors to be connected to a controller simulteneously
-#define MAX_QTY_SENSOR 5
+/* Device Scan rate */
+enum SCAN_RATE {
+    SCAN_1 = 2,
+    SCAN_2 = 5,
+    SCAN_3 = 20
+};
 
 
 enum IO_TYPE
@@ -68,21 +67,21 @@ enum IO_TYPE
  ******************/
 enum PORT_TYPE
 {
-    PORT_DEFAULT = 0,
-    PORT_DIN,  // Digital Input
-    PORT_DOUT, // Digital Output
-    PORT_AIN,  // Analog Input
-    PORT_AOUT, // Analog Output
-    PORT_INTP  // Interrupt pin
+    PORT_TYPE_DEFAULT = 0,
+    PORT_TYPE_DIN,           // Digital Input
+    PORT_TYPE_DOUT,          // Digital Output
+    PORT_TYPE_AIN,           // Analog Input
+    PORT_TYPE_AOUT,          // Analog Output
+    PORT_TYPE_INTP           // Interrupt pin
 };
 
 enum PIN_MODE
 {
-    PIN_DEFAULT = 0,
-    PIN_OUTPUT,
-    PIN_INPUT,
-    PIN_INPUT_PULLUP,
-    PIN_INPUT_PULLDOWN
+    PIN_MODE_DEFAULT = 0,
+    PIN_MODE_OUTPUT,
+    PIN_MODE_INPUT,
+    PIN_MODE_INPUT_PULLUP,
+    PIN_MODE_INPUT_PULLDOWN
 };
 
 /**************************
@@ -90,17 +89,17 @@ enum PIN_MODE
  **************************/
 enum CONTROLLER_TYPE
 {
-    CTL_DEFAULT = 0,
-    CTL_GENERAL,         // Hardware Type General
-    CTL_ESP01,           // ESP-01
-    CTL_ESP8266,         // ESP8266 General devKit
-    CTL_ESP12E,          // ESP8266 type 12E
-    CTL_ESP12F,          // ESP8266 type 12F
-    CTL_ESP32,           // ESP32 General devKit
-    CTL_ESP32_CAM,       // ESP32 Cam devKit
-    CTL_ARDUINO_UNO,     // Arduino Uno
-    CTL_ARDUINO_MEGA,    // Arduino Mega
-    CTL_ARDUINO_LEONARDO // Arduino Leonardo
+    CTL_TYPE_DEFAULT = 0,
+    CTL_TYPE_GENERAL,         // Hardware Type General
+    CTL_TYPE_ESP01,           // ESP-01
+    CTL_TYPE_ESP8266,         // ESP8266 General devKit
+    CTL_TYPE_ESP12E,          // ESP8266 type 12E
+    CTL_TYPE_ESP12F,          // ESP8266 type 12F
+    CTL_TYPE_ESP32,           // ESP32 General devKit
+    CTL_TYPE_ESP32_CAM,       // ESP32 Cam devKit
+    CTL_TYPE_ARDUINO_UNO,     // Arduino Uno
+    CTL_TYPE_ARDUINO_MEGA,    // Arduino Mega
+    CTL_TYPE_ARDUINO_LEONARDO // Arduino Leonardo
 };
 
 /*************************
@@ -108,55 +107,10 @@ enum CONTROLLER_TYPE
  *************************/
 enum NODE_TYPE
 {
-    NODE_DEFAULT = 0,
-    NODE_DIGITAL,
-    NODE_ANALOG
+    NODE_TYPEDEFAULT = 0,
+    NODE_TYPEDIGITAL,
+    NODE_TYPEANALOG
 };
-
-/*************************
- *   CUSTOM STRUCTURES   *
- * TO DEFINE CONTROLLERS *
- *      AND SENSORS      *
- *************************/
-typedef struct
-{
-    char                Name[MAX_CTL_NAME]; // Name of the Controller
-    CONTROLLER_TYPE     Type;    // Type of Controller
-    uint16_t            pinsUsed;       // Total Number of GPIO pins used, set to -1 for no sensors
-    OBJ_SYS_CONTROLLER* pSysCtl;
-} OBJ_CONTROLLER;
-
-typedef struct
-{
-    uint16_t        idxCTL;
-    LOG_STATE       logging;
-} OBJ_SYS_CONTROLLER;
-
-typedef struct
-{
-    char            Name[MAX_SENSOR_NAME];  // Name of the sensor
-    byte            PIN;                    // Connected PIN
-    PORT_TYPE       portType;
-    PIN_MODE        pinMode;                // Specific the mode type
-    CTL_LIST        masterCTL;              // Connected Controller
-    OBJ_SYS_IO*     pSysIO;
-} OBJ_IO;
-
-typedef struct
-{
-    uint16_t    idxIO;
-    IO_STATE    currentState;
-    IO_TYPE     ioType;             // Type: Input or output
-    NODE_TYPE   SignalType;             // Digital or Analog
-} OBJ_SYS_IO;
-
-typedef struct {
-
-} OBJ_SYSTEM;
-
-typedef struct {
-
-} OBJ_MODULE;
 
 
 

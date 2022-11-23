@@ -39,7 +39,7 @@ Single Library to handle it all, aioControl Lib can handle basic IO init and per
         > Controller
     - Modules
         > Hardware
-            $ ControlIO
+            $ ControlIO/DeviceIO
             $ Full HAT
             $ Power
             $ Display
@@ -55,7 +55,7 @@ Single Library to handle it all, aioControl Lib can handle basic IO init and per
 
     - ### RTC: Real-Time Controller is a microController capable of handling Digital/Analog IOs.
         -   ### MicroController: Arduino, ESP8266, ESP32
-        -   ### Remote Server: Raspberry, 
+        -   ### Remote Server: RaspberryPI, RockPI, AtomicPi, etc
     - ### Modules: These are Physical and Virtual modules capable of providing a framework to integrate various IOs together to perform the required task.
         - ### Hardware
             - #### Basic IO Control: Capable of handling basic Input and Output devices, Analog and Digital.
@@ -70,3 +70,26 @@ Single Library to handle it all, aioControl Lib can handle basic IO init and per
 
 <!-- ## 1.3. How does it work? -->
 
+
+```
+## Rough Work ##
+
+### This could be a different approach to our current framework
+
+Divide the whole system between software and hardware, where Hardware is wrapped in `ControlIO` tag, while software part controls and manages the software library(internal and external)
+
+    - System
+        - Hardware: ControlIO
+            - Controller
+            - DeviceIO
+        - Software
+
+Do we really need a startStop class?! 
+
+
+
+
+for logging, software lib should create an instance of EventLog and that instance should be called and used system-wide
+
+
+```

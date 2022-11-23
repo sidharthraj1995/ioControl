@@ -19,8 +19,17 @@
 #include <Arduino.h>
 
 
-#define MAX_CTL_QTY 5
-#define MAX_SENSOR_QTY 5
+// Length of Name string
+#define MAX_NAME_LENGTH 10
+
+// Max number of controller on a system, this includes both local and remote
+#define MAX_QTY_CONTROLLER 3
+
+// Max quantity of allowed sensors to be connected to a controller simulteneously
+#define MAX_QTY_SENSOR 5
+
+
+
 
 /******************
  * GENERAL STATES *
