@@ -6,7 +6,7 @@
 
 /**==============================================
  *                List of Enumerations
- *  1. IO_STATEs
+ *  1. SYS_STATEs
  *  2. NET_STATEs
  *  3. pinTypes
  *  
@@ -20,7 +20,10 @@
 
 
 // Length of Name string
-#define MAX_NAME_LENGTH 10
+#define MAX_NAME_LENGTH 20
+
+// Length of Date
+#define MAX_DATE_LENGTH 12 // 2022-11-24
 
 // Max number of controller on a system, this includes both local and remote
 #define MAX_QTY_CONTROLLER 3
@@ -34,7 +37,7 @@
 /******************
  * GENERAL STATES *
  ******************/
-enum IO_STATE
+enum SYS_STATE
 {
     STS_DEFAULT = 0,
     STS_ON,  // Status ON
@@ -74,7 +77,8 @@ enum ALERT_TYPE {
  * LOGGING STATES *
  ******************/
 enum LOG_STATE {
-    LOG_NONE = 0,
+    LOG_DEFAULT = 0,
+    LOG_NONE,
     LOG_ENABLED,        // Logging Enabled
     LOG_DISABLED,       // Logging Disabled
     LOG_ERR             // Logging Error
@@ -93,62 +97,16 @@ enum CTL_LIST {
     CTL_MAX_ASIZE           // MUST BE LAST!!
 };
 
+enum DEVICE_LIST {
+    DEVICE_LIST_DEFAULT = 0,
+    DEVICE_TEST_IN_1,
+    DEVICE_TEST_IN_2,
+    
+    DEVICE_TEST_OUT_1,
+    DEVICE_TEST_OUT_2,
 
-/****************************
- * LIST ALL DIGITAL SENSORS *
- *          INPUT           *
- ****************************/
-enum digitalNode_IN {
-    D_Sensor0_IN_DEFAULT = 0,
-    D_Sensor1_IN_TEST1,        // TEST sensor
-    D_Sensor2_IN_NONE,
-    D_Sensor3_IN_NONE,
-    D_Sensor4_IN_NONE,
-    D_Sensor5_IN_NONE,
+    DEVICE_MAX_ASIZE
 };
-
-
-/****************************
- * LIST ALL DIGITAL SENSORS *
- *         OUTPUT           *
- ****************************/
-enum digitalNode_OUT {
-    D_Sensor0_OUT_DEFAULT = 0,
-    D_Sensor1_OUT_TEST2,        // TEST Sensor
-    D_Sensor2_OUT_NONE,
-    D_Sensor3_OUT_NONE,
-    D_Sensor4_OUT_NONE,
-    D_Sensor5_OUT_NONE,
-};
-
-
-/****************************
- * LIST ALL Analog SENSORS  *
- *          INPUT           *
- ****************************/
-enum analogNode_IN {
-    A_Sensor0_IN_DEFAULT = 0,
-    A_Sensor1_IN_NONE,
-    A_Sensor2_IN_NONE,
-    A_Sensor3_IN_NONE,
-    A_Sensor4_IN_NONE,
-    A_Sensor5_IN_NONE,
-};
-
-
-/****************************
- * LIST ALL Analog SENSORS  *
- *          OUTPUT          *
- ****************************/
-enum analogNode_OUT {
-    A_Sensor0_OUT_DEFAULT = 0,
-    A_Sensor1_OUT_NONE,
-    A_Sensor2_OUT_NONE,
-    A_Sensor3_OUT_NONE,
-    A_Sensor4_OUT_NONE,
-    A_Sensor5_OUT_NONE,
-};
-
 
 
 /*****************************

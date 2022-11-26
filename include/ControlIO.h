@@ -35,11 +35,11 @@
 /****************************
  * GENERAL NC AND NO STATES *
  ****************************/
-#define DIO_NO_ON_II DIO_HIGH
-#define DIO_NO_OFF_II DIO_LOW
+#define DIO_NO_ON_II     DIO_HIGH
+#define DIO_NO_OFF_II    DIO_LOW
 
-#define DIO_NC_ON_II DIO_LOW
-#define DIO_NC_OFF_II DIO_HIGH
+#define DIO_NC_ON_II     DIO_LOW
+#define DIO_NC_OFF_II    DIO_HIGH
 
 /**********************
  * GENERAL ANALOG IOS *
@@ -49,6 +49,7 @@
 
 /* Device Scan rate */
 enum SCAN_RATE {
+    SCAN_DEFAULT = 0,
     SCAN_1 = 2,
     SCAN_2 = 5,
     SCAN_3 = 20
