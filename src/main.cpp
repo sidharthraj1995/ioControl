@@ -2,31 +2,39 @@
  * * PROJECT TO LEARN ABOUT ARDUINO LIBRARIES *
  *      * AND IMPROVE PROGRAMMING SKILLS      *
  **********************************************/
-#include <Arduino.h>
-
-#define ONBOARD_LED 2
-
-
-void toggleIO(uint8_t pin);
+// #include <Arduino.h>
+#include "rtc.h"
 
 
-uint32_t count = 0;
+CSystem ProjSys;
+
+OBJ_SYSTEM Obj_sys = {
+    "Arkham Labs",  // char                Name[MAX_NAME_LENGTH];
+    "2022-11-24",   // char                InitDay0[MAX_DATE_LENGTH];
+    {
+        "aioControl",           // char        ProjectName[MAX_NAME_LENGTH];
+        "Arkham",               // char        Author[MAX_NAME_LENGTH];
+        "aioControl v0.5",      // char        Framework[MAX_NAME_LENGTH];
+        // 1                     // uint16_t    FrameworkVersion;
+    },              // OBJ_PROJECT_INFO
+    #include "DefSystem.h"  // OBJ_CONTROLLER      Controller[CTL_MAX_ASIZE - 1];
+};                      // OBJ_SYSTEM
+
+
+
+
 
 void setup() {
   // put your setup code here, to run once:
-  Serial.begin(9600);
-  pinMode(ONBOARD_LED, OUTPUT);
-  digitalWrite(ONBOARD_LED, LOW);
+  Serial.begin(115200);
+  // Serial.flush();
+  ProjSys.Init(Obj_sys);
+
+  delay(500);
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-  Serial.printf("<Poop #%d>\n",count++);
-  Serial.println(".");
-  toggleIO(ONBOARD_LED);
-  delay(250);
-}
-
-void toggleIO(uint8_t pin) {
-  digitalWrite(pin, !digitalRead(pin));
+  // Serial.println(".....");  
+  // delay(500);
 }
