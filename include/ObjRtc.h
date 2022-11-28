@@ -59,12 +59,12 @@ typedef struct {
 
 /*************************************************************/
 
-typedef struct {
+struct OBJ_PROJECT_INFO {
   char                   ProjectName[MAX_NAME_LENGTH];
   char                   Author[MAX_NAME_LENGTH];
   char                   Framework[MAX_NAME_LENGTH];
-  uint16_t               FrameworkVersion;
-} OBJ_PROJECT_INFO;
+  // uint16_t               FrameworkVersion;
+};
 
 /* System OBJ */
 struct OBJ_SYSTEM {

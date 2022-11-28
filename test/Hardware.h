@@ -20,7 +20,7 @@ class CController : public CSystem
 private:
     
 protected:
-    OBJ_CONTROLLER* pCtl;
+    OBJ_CONTROLLER  *pCtl;
 
 public:
     CController();

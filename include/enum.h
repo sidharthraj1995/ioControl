@@ -16,7 +16,6 @@
 #ifndef A_ENUM_h
 #define A_ENUM_h
 
-#include <Arduino.h>
 
 
 // Length of Name string

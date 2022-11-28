@@ -1,18 +1,17 @@
 #ifndef __RTC_H_Q5J47YXKDIMF__
 #define __RTC_H_Q5J47YXKDIMF__
 
-#include <Arduino.h>
-#include "enum.h"
-#include "ControlIO.h"
+// #include <Arduino.h>
+// #include "enum.h"
+// #include "ControlIO.h"
 // #include "ObjRtc.h"
 
 
-#include "DefRtc.h"
+#include "rtc_config.h"
 
+// #define GLOBAL extern
+// GLOBAL OBJ_SYSTEM *pSys;
 
-#define GLOBAL extern
-
-GLOBAL OBJ_SYSTEM *pSys;
 
 /***************************************************
  *                  CLASS SYSTEM                   *
@@ -31,8 +30,7 @@ protected:
 public:
     CSystem();
     ~CSystem();
-    // void Init(OBJ_SYSTEM sys);
-    void Init();
+    void Init(OBJ_SYSTEM Sys);
     void Register();
 
 };

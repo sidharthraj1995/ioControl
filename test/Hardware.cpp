@@ -23,7 +23,7 @@ CController::~CController() {
 
 bool CController::Init() { 
   bInit = true; 
-  pCtl = &pSys->Controller;     // try memcpy?
+  // pCtl = &pSys->Controller;     // try memcpy?
   return 1;
 }
 

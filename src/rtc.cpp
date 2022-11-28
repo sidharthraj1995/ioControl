@@ -18,13 +18,21 @@ CSystem::~CSystem() {
     Serial.println("Congrats, deconstructor called!!");
 }
 
-void CSystem::Init() {
+void CSystem::Init(OBJ_SYSTEM Sys) {
     bInit = true;
-    // pSys = &Obj_sys;
-    memcpy(pSys, &Obj_sys, sizeof(OBJ_SYSTEM));
+    pSys = &Sys;
+    // memcpy(pSys, &Sys, sizeof(OBJ_SYSTEM));
+    Serial.flush();
+    Serial.println('\n');
+    Serial.println('\n');
     Serial.println("Congrats, new system Init() successful!");
-    Serial.printf("Name: %c\n", pSys->Name);
-    Serial.printf("Framework version: %d\n", pSys->Info.FrameworkVersion);
+    Serial.println('\n');
+    Serial.println('\n');
+    Serial.printf("Name: %s \n", pSys->Name);
+    Serial.printf("InitDate: %s \n", pSys->InitDay0);
+    Serial.printf("Project Name: %s", pSys->Info.ProjectName);
+    Serial.printf("Framework version: %s \n", pSys->Info.Framework);
+    Serial.printf("Author Name: %s \n", pSys->Info.Author);
 }
 
 void CSystem::Register() {
