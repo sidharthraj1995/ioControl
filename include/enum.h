@@ -39,11 +39,12 @@
 enum SYS_STATE
 {
     STS_DEFAULT = 0,
-    STS_ON,  // Status ON
-    STS_OFF, // Status OFF
-    STS_OK,  // Status OK
-    STS_EN,  // Status Enabled
-    STS_ERR  // Status Error
+    STS_INIT,
+    STS_ON,         // Status ON
+    STS_OFF,        // Status OFF
+    STS_OK,         // Status OK
+    STS_EN,         // Status Enabled
+    STS_ERR         // Status Error
 };
 
 /**************************

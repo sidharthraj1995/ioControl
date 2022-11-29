@@ -9,6 +9,8 @@
 
 #include "Global.h"
 
+// GLOBAL CController         cCtl;
+// GLOBAL CDeviceIO           cDev[MAX_QTY_SENSOR];
 
 
 /***************************************************
@@ -24,14 +26,19 @@ private:
 
 protected:
     OBJ_SYSTEM          *pSys;
-    // OBJ_CONTROLLER      *pCtl;
-    // OBJ_DEVICEIO        *pDev;
+    OBJ_CONTROLLER      *pCtl;
+    OBJ_DEVICEIO        *pDev;
+
+    int            totalCtl;
+
 
 public:
     CSystem();
     ~CSystem();
     void Init(OBJ_SYSTEM Sys);
     bool Register();
+
+    // virtual void Register() = 0;
 
 };
 
@@ -51,7 +58,7 @@ public:
     CController();
     ~CController();
     bool Init();
-    bool Register();
+    void Register();
 
 
 };

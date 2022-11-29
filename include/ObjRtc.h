@@ -41,7 +41,7 @@ typedef struct {
 } OBJ_SETTING_CONTROLLER;
 
 typedef struct {
-  uint16_t              idxCTL;
+  int                   idxCTL;
   SYS_STATE             statusCTL;
   NET_STATE             netCTL;
 } OBJ_STATUS_CONTROLLER;

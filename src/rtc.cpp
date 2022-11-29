@@ -9,6 +9,8 @@ Sets all values to default */
 CSystem::CSystem() {
     bInit = false;
     bRegistered = false;
+
+    totalCtl = 0;
 }
 
 CSystem::~CSystem() {
@@ -36,9 +38,9 @@ void CSystem::Init(OBJ_SYSTEM Sys) {
     Serial.printf("Framework version: %s \n", pSys->Info.Framework);
     Serial.printf("Author Name: %s \n", pSys->Info.Author);
     Serial.println('\n');
-    Serial.println('\n');
+    // Serial.println('\n');
 
-    *pCtl = pSys->Controller;
+    pCtl = &pSys->Controller;
 }
 
 
@@ -46,13 +48,23 @@ void CSystem::Init(OBJ_SYSTEM Sys) {
  * THIS IS WHERE YOU REGISTER THE CONTROLLER *
  *********************************************/
 bool CSystem::Register() {
-    CController cCtl;
+    if (!bInit)
+        return 0;
+
+    // CSystem *cctl = new CController;
+    // cctl->Register();
+    // delete cctl;
+    // bRegistered = true; 
+    // return 1;
+
     if (!(pCtl->bInUse))
     {
         Serial.println("You moron, CTL is NOT in use! Fix your shit!");
         return 0;
     }
-    Serial.printf("Congrats, CTL: %s REGISTERED!", pCtl->Name);
+    // totalCtl++;             // increment controller index
+    pCtl->StatusCTL.idxCTL = ++totalCtl;
+    Serial.printf("Congrats, CTL: %s , Index: %d REGISTERED!\n", pCtl->Name, pCtl->StatusCTL.idxCTL);
     bRegistered = true;
     return bRegistered;
 }
@@ -77,13 +89,21 @@ CController::~CController() {
 
 bool CController::Init() { 
     bInit = true; 
-  // pCtl = &pSys->Controller;     // try memcpy?
-
     return 1;
 }
 
-bool CController::Register() {
-    return 0;
+void CController::Register() {
+    if (!(pCtl->bInUse))
+    {
+        Serial.println("You moron, CTL is NOT in use! Fix your shit!");
+        // return 0;
+    }
+    // totalCtl++;             // increment controller index
+    pCtl->StatusCTL.idxCTL = ++totalCtl;
+    Serial.printf("Congrats, CTL: %s , Index: %d REGISTERED!\n", pCtl->Name, pCtl->StatusCTL.idxCTL);
+    bRegistered = true;
+    // return bRegistered;
+
 }
 
 //------------- Controller Definition END ------------------//
