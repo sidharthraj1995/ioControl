@@ -7,10 +7,8 @@
 // #include "ObjRtc.h"
 
 
-#include "rtc_config.h"
+#include "Global.h"
 
-// #define GLOBAL extern
-// GLOBAL OBJ_SYSTEM *pSys;
 
 
 /***************************************************
@@ -25,15 +23,66 @@ private:
     bool bRegistered;
 
 protected:
-    OBJ_SYSTEM *pSys;
+    OBJ_SYSTEM          *pSys;
+    // OBJ_CONTROLLER      *pCtl;
+    // OBJ_DEVICEIO        *pDev;
 
 public:
     CSystem();
     ~CSystem();
     void Init(OBJ_SYSTEM Sys);
-    void Register();
+    bool Register();
 
 };
+
+
+//--------------------------------------------------------------//
+
+class CController : public CSystem
+{
+private:
+    
+protected:
+    OBJ_CONTROLLER      *pmCtl;
+    bool                bRegistered;
+    bool                bInit;
+
+public:
+    CController();
+    ~CController();
+    bool Init();
+    bool Register();
+
+
+};
+
+//--------------------------------------------------------------//
+
+/* This is where you define your Devices
+and IOs.
+Derived class */ 
+class CDeviceIO: public CController
+{
+private:
+    
+protected:
+    OBJ_DEVICEIO    *pmDev;
+    bool            bInit;
+    bool            bRegister;
+
+public:
+    CDeviceIO();
+    ~CDeviceIO();
+    bool Init();
+    bool Register();
+    
+
+    uint16_t    QtyDevices;
+};
+
+
+
+
 
 
 #endif  // __RTC_H_Q5J47YXKDIMF__

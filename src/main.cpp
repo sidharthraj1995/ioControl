@@ -29,8 +29,8 @@ void setup() {
   Serial.begin(115200);
   // Serial.flush();
   ProjSys.Init(Obj_sys);
-
   delay(500);
+  ProjSys.Register();
 }
 
 void loop() {
