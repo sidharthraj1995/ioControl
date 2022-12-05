@@ -1,16 +1,15 @@
 #ifndef __RTC_H_Q5J47YXKDIMF__
 #define __RTC_H_Q5J47YXKDIMF__
 
-// #include <Arduino.h>
-// #include "enum.h"
-// #include "ControlIO.h"
-// #include "ObjRtc.h"
 
 
 #include "Global.h"
 
-// GLOBAL CController         cCtl;
-// GLOBAL CDeviceIO           cDev[MAX_QTY_SENSOR];
+
+static OBJ_SYSTEM         *pSys;
+static OBJ_CONTROLLER     *pCtl;
+static OBJ_DEVICEIO       *pDev;
+
 
 
 /***************************************************
@@ -25,10 +24,6 @@ private:
     bool bRegistered;
 
 protected:
-    OBJ_SYSTEM          *pSys;
-    OBJ_CONTROLLER      *pCtl;
-    OBJ_DEVICEIO        *pDev;
-
     int            totalCtl;
 
 
@@ -50,7 +45,6 @@ class CController : public CSystem
 private:
     
 protected:
-    OBJ_CONTROLLER      *pmCtl;
     bool                bRegistered;
     bool                bInit;
 
@@ -64,6 +58,11 @@ public:
 };
 
 //--------------------------------------------------------------//
+/************************************************
+ *     DONT THINK I NEED THIS SHIT ANYMORE,     *
+ * SHOULD GO AHEAD AND MERGE IT WITH CONTROLLER *
+ *                    CLASS                     *
+ ************************************************/
 
 /* This is where you define your Devices
 and IOs.
@@ -73,7 +72,6 @@ class CDeviceIO: public CController
 private:
     
 protected:
-    OBJ_DEVICEIO    *pmDev;
     bool            bInit;
     bool            bRegister;
 

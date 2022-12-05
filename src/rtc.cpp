@@ -25,10 +25,9 @@ void CSystem::Init(OBJ_SYSTEM Sys) {
     pSys = &Sys;
     // memcpy(pSys, &Sys, sizeof(OBJ_SYSTEM));
     Serial.flush();
+    Serial.println("\n");
     Serial.println('\n');
-    Serial.println('\n');
-    Serial.println("Congrats, new system Init() successful!");
-    Serial.println('\n');
+    Serial.println("New system Init() started!");
     Serial.println('\n');
 
     // Print all Project related data
@@ -38,9 +37,14 @@ void CSystem::Init(OBJ_SYSTEM Sys) {
     Serial.printf("Framework version: %s \n", pSys->Info.Framework);
     Serial.printf("Author Name: %s \n", pSys->Info.Author);
     Serial.println('\n');
-    // Serial.println('\n');
 
     pCtl = &pSys->Controller;
+
+    Serial.println("\n");
+    Serial.println('\n');
+    Serial.println("Congrats, new system Init() successful!");
+    Serial.println('\n');
+    Serial.println('\n');
 }
 
 
@@ -128,5 +132,9 @@ bool CDeviceIO::Init() {
 }
 
 //------------- DeviceIO Definition END ------------------//
+
+
+
+
 
 

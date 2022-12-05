@@ -12,9 +12,9 @@
 #define GLOBAL extern
 
 
-GLOBAL OBJ_SYSTEM         *pSys;
-GLOBAL OBJ_CONTROLLER     *pCtl;
-GLOBAL OBJ_DEVICEIO       *pDev;
+// static OBJ_SYSTEM         *pSys;
+// static OBJ_CONTROLLER     *pCtl;
+// static OBJ_DEVICEIO       *pDev;
 
 
 
