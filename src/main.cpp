@@ -32,7 +32,7 @@ void setup() {
   
   // ProjSys.Register();
   if (ProjSys.Register())
-    Serial.println("Register\n");
+    Serial.println("ProjSys() Registered!\n");
 }
 
 void loop() {

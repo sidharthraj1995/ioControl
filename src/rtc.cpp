@@ -24,13 +24,12 @@ void CSystem::Init(OBJ_SYSTEM Sys) {
     bInit = true;
     pSys = &Sys;
     // memcpy(pSys, &Sys, sizeof(OBJ_SYSTEM));
-    Serial.flush();
     Serial.println("\n");
     Serial.println('\n');
     Serial.println("New system Init() started!");
     Serial.println('\n');
 
-    // Print all Project related data
+    // Print all Project specific data
     Serial.printf("Name: %s \n", pSys->Name);
     Serial.printf("InitDate: %s \n", pSys->InitDay0);
     Serial.printf("Project Name: %s \n", pSys->Info.ProjectName);
@@ -38,15 +37,20 @@ void CSystem::Init(OBJ_SYSTEM Sys) {
     Serial.printf("Author Name: %s \n", pSys->Info.Author);
     Serial.println('\n');
 
-    pCtl = &pSys->Controller;
+    pCtl = &pSys->Controller;           // pass Controller's addr to static pointer to Ctl, defined 
+    pCtl->StatusCTL.statusCTL = STS_INIT;       // set controller state to INIT, will be checked by CController
 
     Serial.println("\n");
     Serial.println('\n');
     Serial.println("Congrats, new system Init() successful!");
     Serial.println('\n');
     Serial.println('\n');
-}
 
+
+    // TODO  Call CController::Register() below
+    // Call derived class method inside base class
+
+}
 
 /*********************************************
  * THIS IS WHERE YOU REGISTER THE CONTROLLER *
@@ -78,6 +82,12 @@ bool CSystem::Register() {
 
 
 
+
+
+
+
+
+
 //------------- Controller Definition START ------------------//
 
 /* CController Class Constructor
@@ -97,7 +107,7 @@ bool CController::Init() {
 }
 
 void CController::Register() {
-    if (!(pCtl->bInUse))
+    if (!pCtl->bInUse  && pCtl->StatusCTL.statusCTL != STS_INIT )
     {
         Serial.println("You moron, CTL is NOT in use! Fix your shit!");
         // return 0;
@@ -111,6 +121,10 @@ void CController::Register() {
 }
 
 //------------- Controller Definition END ------------------//
+
+
+
+
 
 //------------- DeviceIO Definition START ------------------//
 /* CSensor Constructor
