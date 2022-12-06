@@ -1,6 +1,76 @@
 #include "rtc.h"
 
 
+static OBJ_SYSTEM         *pSys;
+static OBJ_CONTROLLER     *pCtl;
+static OBJ_DEVICEIO       *pDev;
+
+
+
+
+//------------- Controller Definition START ------------------//
+
+/* CController Class Constructor
+Sets all values to default */
+CController::CController() {
+    bInit = false;
+    bRegistered = false;
+}
+
+CController::~CController() {
+    Serial.println("CController() deconstructor called! Well done!");
+}
+
+bool CController::Init() { 
+    bInit = true; 
+    return 1;
+}
+
+bool CController::Register() {
+    if (!pCtl->bInUse  && pCtl->StatusCTL.statusCTL != STS_INIT )
+    {
+        Serial.println("You moron, CTL is NOT in use! Fix your shit!");
+        return 0;
+    }
+    // totalCtl++;             // increment controller index
+    pCtl->StatusCTL.idxCTL = totalCtl++;
+    pCtl->StatusCTL.statusCTL = STS_EN;
+    Serial.printf("New Controller Registered, NAME: %s , Index: %d \n", pCtl->Name, pCtl->StatusCTL.idxCTL);
+    bRegistered = true;
+    return bRegistered;
+
+}
+
+//------------- Controller Definition END ------------------//
+
+
+
+
+
+//------------- DeviceIO Definition START ------------------//
+/* CSensor Constructor
+Sets various values to default */
+
+CDeviceIO::CDeviceIO() {
+    bInit = false;
+    bRegister = false;
+
+  QtyDevices = -1;  // THINK! what? why?
+}
+
+CDeviceIO::~CDeviceIO() {
+    Serial.println("CDeviceIO() deconstructor called, enjoy!");
+}
+
+bool CDeviceIO::AddIO(OBJ_DEVICEIO *DevIO) {
+    return 0;
+}
+
+//------------- DeviceIO Definition END ------------------//
+
+
+
+
 
 //------------- System Definition START ------------------//
 
@@ -49,105 +119,10 @@ void CSystem::Init(OBJ_SYSTEM Sys) {
 
     // TODO  Call CController::Register() below
     // Call derived class method inside base class
-
-}
-
-/*********************************************
- * THIS IS WHERE YOU REGISTER THE CONTROLLER *
- *********************************************/
-bool CSystem::Register() {
-    if (!bInit)
-        return 0;
-
-    // CSystem *cctl = new CController;
-    // cctl->Register();
-    // delete cctl;
-    // bRegistered = true; 
-    // return 1;
-
-    if (!(pCtl->bInUse))
-    {
-        Serial.println("You moron, CTL is NOT in use! Fix your shit!");
-        return 0;
-    }
-    // totalCtl++;             // increment controller index
-    pCtl->StatusCTL.idxCTL = ++totalCtl;
-    Serial.printf("Congrats, CTL: %s , Index: %d REGISTERED!\n", pCtl->Name, pCtl->StatusCTL.idxCTL);
-    bRegistered = true;
-    return bRegistered;
+    CController::Register();
 }
 
 //------------- System Definition END ------------------------//
-
-
-
-
-
-
-
-
-
-
-//------------- Controller Definition START ------------------//
-
-/* CController Class Constructor
-Sets all values to default */
-CController::CController() {
-    bInit = false;
-    bRegistered = false;
-}
-
-CController::~CController() {
-    Serial.println("CController() deconstructor called! Well done!");
-}
-
-bool CController::Init() { 
-    bInit = true; 
-    return 1;
-}
-
-void CController::Register() {
-    if (!pCtl->bInUse  && pCtl->StatusCTL.statusCTL != STS_INIT )
-    {
-        Serial.println("You moron, CTL is NOT in use! Fix your shit!");
-        // return 0;
-    }
-    // totalCtl++;             // increment controller index
-    pCtl->StatusCTL.idxCTL = ++totalCtl;
-    Serial.printf("Congrats, CTL: %s , Index: %d REGISTERED!\n", pCtl->Name, pCtl->StatusCTL.idxCTL);
-    bRegistered = true;
-    // return bRegistered;
-
-}
-
-//------------- Controller Definition END ------------------//
-
-
-
-
-
-//------------- DeviceIO Definition START ------------------//
-/* CSensor Constructor
-Sets various values to default */
-
-CDeviceIO::CDeviceIO() {
-    bInit = false;
-    bRegister = false;
-
-  QtyDevices = -1;  // THINK! what? why?
-}
-
-CDeviceIO::~CDeviceIO() {
-    Serial.println("CDeviceIO() deconstructor called, enjoy!");
-}
-
-bool CDeviceIO::Init() {
-    return 0;
-}
-
-//------------- DeviceIO Definition END ------------------//
-
-
 
 
 

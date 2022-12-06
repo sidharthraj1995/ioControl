@@ -9,7 +9,7 @@
     CTL_TYPE_DEFAULT,       // CONTROLLER_TYPE             Type;                   // Type of Controller
     0,                      // uint16_t                    PinsUsed;               // Init: Total Number of GPIO pins used, set to -1 for no sensor
     {
-        -1,             // uint16_t             idxIO;
+        0,              // uint16_t             idxIO;
         STS_INIT,       // SYS_STATE             statusCTL;
         NET_STS_DISABLED,                // NET_STATE             netCTL;
     },        // OBJ_STATUS_CONTROLLER       StatusCTL;

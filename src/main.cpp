@@ -31,8 +31,8 @@ void setup() {
   delay(500);
   
   // ProjSys.Register();
-  if (ProjSys.Register())
-    Serial.println("ProjSys() Registered!\n");
+//   if (ProjSys.Register())
+//     Serial.println("ProjSys() Registered!\n");
 }
 
 void loop() {

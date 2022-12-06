@@ -6,55 +6,29 @@
 #include "Global.h"
 
 
-static OBJ_SYSTEM         *pSys;
-static OBJ_CONTROLLER     *pCtl;
-static OBJ_DEVICEIO       *pDev;
 
 
-
-/***************************************************
- *                  CLASS SYSTEM                   *
- * THIS IS THE MASTER CLASS THAT HOLDS CONTROLLERS *
- *                  AND DEVICEIOS                  *
- ***************************************************/
-class CSystem
-{
-private:
-    bool bInit;
-    bool bRegistered;
-
-protected:
-    int            totalCtl;
-
-
-public:
-    CSystem();
-    ~CSystem();
-    void Init(OBJ_SYSTEM Sys);
-    bool Register();
-
-    // virtual void Register() = 0;
-
-};
-
-
-//--------------------------------------------------------------//
-
-class CController : public CSystem
+/****************************************
+ *           CONTROLLER CLASS           *
+ *    THIS IS THE MASTER CLASS THAT     *
+ * CALLS ALL THE OTHER CLASS/METHODS TO *
+ *           INIT THE SYSTEM            *
+ ****************************************/
+class CController
 {
 private:
     
 protected:
     bool                bRegistered;
     bool                bInit;
+    int                 totalCtl;
 
 public:
     CController();
     ~CController();
     bool Init();
-    void Register();
-
-
+    bool Register();
+    virtual bool AddIO(OBJ_DEVICEIO *DevIO) const;
 };
 
 //--------------------------------------------------------------//
@@ -74,18 +48,36 @@ private:
 protected:
     bool            bInit;
     bool            bRegister;
+    virtual bool AddIO(OBJ_DEVICEIO *DevIO);
 
 public:
     CDeviceIO();
     ~CDeviceIO();
-    bool Init();
-    bool Register();
-    
+    // bool Register();
 
     uint16_t    QtyDevices;
 };
 
 
+
+
+class CSystem : public CController
+{
+private:
+    bool bInit;
+    bool bRegistered;
+
+protected:
+
+public:
+    CSystem();
+    ~CSystem();
+    void Init(OBJ_SYSTEM Sys);
+    // bool Register();
+
+    // virtual void Register() const = 0;
+
+};
 
 
 
