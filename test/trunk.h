@@ -1,7 +1,20 @@
 // Scrap code here
 
-
 /*
+
+## Identifier Naming convention
+CONST_NAME 
+TYPEDEF_NAME 
+namespace_name
+Class_name Struct_name 
+Enum_name 
+function_name var_name 
+var_names[]
+
+
+
+
+
 
 class Event {
   public:

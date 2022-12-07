@@ -6,7 +6,7 @@
 #include "rtc.h"
 
 
-CSystem ProjSys;
+// CSystem ProjSys;
 
 OBJ_SYSTEM Obj_sys = {
     "Arkham Labs",  // char                Name[MAX_NAME_LENGTH];
@@ -26,13 +26,12 @@ OBJ_SYSTEM Obj_sys = {
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);
-  // Serial.flush();
-  ProjSys.Init(Obj_sys);
+  // ProjSys.Init(Obj_sys);
   delay(500);
   
   // ProjSys.Register();
-//   if (ProjSys.Register())
-//     Serial.println("ProjSys() Registered!\n");
+  //  if (ProjSys.Register())
+  //    Serial.println("ProjSys() Registered!\n");
 }
 
 void loop() {

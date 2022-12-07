@@ -7,7 +7,6 @@
 /*************************************************************/
 
 typedef struct {
-  PORT_TYPE            portType;
   PIN_MODE             pinMode;     // Specific the mode type
   SCAN_RATE            scanRate;    // Device scan rate
   CTL_LIST             masterCTL;   // Connected Controller
@@ -15,10 +14,12 @@ typedef struct {
 } OBJ_SETTING_DEVICEIO;
 
 typedef struct {
+  bool                 bRegistered;
   uint16_t             idxIO;
-  SYS_STATE            currentState;
+  PORT_TYPE            portType;
   IO_TYPE              ioType;        // Type: Input or output
   NODE_TYPE            SignalType;    // Digital or Analog
+  SYS_STATE            currentState;
 } OBJ_STATUS_DEVICEIO;
 
 /* Control IO OBJ */
@@ -41,7 +42,9 @@ typedef struct {
 } OBJ_SETTING_CONTROLLER;
 
 typedef struct {
+  bool                      bRegistered;
   byte                      idxCTL;
+  byte                      connectedDev;
   SYS_STATE                 statusCTL;
   NET_STATE                 netCTL;
 } OBJ_STATUS_CONTROLLER;

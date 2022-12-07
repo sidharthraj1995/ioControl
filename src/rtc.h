@@ -27,8 +27,10 @@ public:
     CController();
     ~CController();
     bool Init();
+    bool Preregister();         // set all STATUS values to default
     bool Register();
-    virtual bool AddIO(OBJ_DEVICEIO *DevIO) const;
+    bool AddIO();
+    // virtual bool AddIO(OBJ_DEVICEIO *DevIO) = 0;
 };
 
 //--------------------------------------------------------------//
@@ -41,19 +43,19 @@ public:
 /* This is where you define your Devices
 and IOs.
 Derived class */ 
-class CDeviceIO: public CController
+class CDeviceIO
 {
 private:
     
 protected:
-    bool            bInit;
     bool            bRegister;
-    virtual bool AddIO(OBJ_DEVICEIO *DevIO);
 
 public:
     CDeviceIO();
     ~CDeviceIO();
+    void Init();
     // bool Register();
+    bool AddIO(OBJ_DEVICEIO *DevIO);
 
     uint16_t    QtyDevices;
 };
@@ -75,7 +77,6 @@ public:
     void Init(OBJ_SYSTEM Sys);
     // bool Register();
 
-    // virtual void Register() const = 0;
 
 };
 

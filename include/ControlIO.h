@@ -108,9 +108,9 @@ enum CONTROLLER_TYPE
  *************************/
 enum NODE_TYPE
 {
-    NODE_TYPEDEFAULT = 0,
-    NODE_TYPEDIGITAL,
-    NODE_TYPEANALOG
+    NODE_TYPE_DEFAULT = 0,
+    NODE_TYPE_DIGITAL,
+    NODE_TYPE_ANALOG
 };
 
 
