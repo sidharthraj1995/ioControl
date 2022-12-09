@@ -26,7 +26,7 @@ protected:
 public:
     CController();
     ~CController();
-    bool Init();
+    bool Init(OBJ_CONTROLLER &Ctl);
     bool Preregister();         // set all STATUS values to default
     bool Register();
     bool AddIO();

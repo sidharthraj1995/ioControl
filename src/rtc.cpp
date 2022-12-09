@@ -6,9 +6,15 @@ static OBJ_CONTROLLER     *pCtl;
 static OBJ_DEVICEIO       *pDev;
 
 
+/* Concept is clear - 
+* You have Init(), Register(),
+* Init() - Takes the address of the main OBJ
+* Register() - 
+*/
 
 
-//------------- Controller Definition START ------------------//
+
+//------------- Controller  START ------------------//
 
 /* CController Class Constructor
 Sets all values to default */
@@ -22,8 +28,11 @@ CController::~CController() {
     Serial.println("CController() deconstructor called! Well done!");
 }
 
-bool CController::Init() { 
+bool CController::Init(OBJ_CONTROLLER &Ctl) { 
+    pCtl = &Ctl;
 
+    // pCtl = &pSys->Controller;           // pass Controller's addr to static pointer to Ctl, defined 
+    // pCtl->StatusCTL.statusCTL = STS_INIT;       // set controller state to INIT, will be checked by CController
     return bInit;
 }
 
@@ -49,21 +58,20 @@ bool CController::Register() {
         return false;
     }
     bRegistered = true;
-    CController::Init();
-    // totalCtl++;             // increment controller index
     pCtl->StatusCTL.idxCTL = totalCtl++;
     pCtl->StatusCTL.statusCTL = STS_EN;
+    // pDev = &pCtl->DeviceIO;
     Serial.printf("New Controller Registered, NAME: %s , Index: %d \n", pCtl->Name, pCtl->StatusCTL.idxCTL);
     return bRegistered;
 }
 
-//------------- Controller Definition END ------------------//
+//------------- Controller  END ------------------//
 
 
 
 
 
-//------------- DeviceIO Definition START ------------------//
+//------------- DeviceIO  START ------------------//
 /* CSensor Constructor
 Sets various values to default */
 
@@ -89,13 +97,13 @@ bool CDeviceIO::AddIO(OBJ_DEVICEIO *DevIO) {
     return 0;
 }
 
-//------------- DeviceIO Definition END ------------------//
+//------------- DeviceIO  END ------------------//
 
 
 
 
 
-//------------- System Definition START ------------------//
+//------------- System  START ------------------//
 
 /* CController Class Constructor
 Sets all values to default */
@@ -130,6 +138,8 @@ void CSystem::Init(OBJ_SYSTEM Sys) {
     Serial.printf("Author Name: %s \n", pSys->Info.Author);
     Serial.println('\n');
 
+    
+    // convert below to CController Init() method
     pCtl = &pSys->Controller;           // pass Controller's addr to static pointer to Ctl, defined 
     pCtl->StatusCTL.statusCTL = STS_INIT;       // set controller state to INIT, will be checked by CController
 
@@ -145,7 +155,7 @@ void CSystem::Init(OBJ_SYSTEM Sys) {
     CController::Register();
 }
 
-//------------- System Definition END ------------------------//
+//------------- System  END ------------------------//
 
 
 
