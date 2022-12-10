@@ -11,10 +11,23 @@ Enum_name
 function_name var_name 
 var_names[]
 
+*/
+
+/*================== OBJ_TYPES =================*/
+/* 
+status
+data
+control
+settings
+info
 
 
 
+*/
 
+
+
+/* 
 
 class Event {
   public:
@@ -69,7 +82,7 @@ void loop() {
   delay(10);
 
   for (PushButton & button : buttons) button.check();
-  //// if the range based for loop above doesn't work, you have to use old school one:
+  // if the range based for loop above doesn't work, you have to use old school one:
   // for (uint8_t i = 0; i < 2; ++i) buttons[i].check();
 }
 

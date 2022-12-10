@@ -1,15 +1,17 @@
 #include "rtc.h"
 
 
-static OBJ_SYSTEM         *pSys;
-static OBJ_CONTROLLER     *pCtl;
-static OBJ_DEVICEIO       *pDev;
+static OBJ_SYSTEM         *ptrSys;
+static OBJ_CONTROLLER     *ptrCtl;
+static OBJ_DEVICEIO       *ptrDev;
 
 
 /* Concept is clear - 
-* You have Init(), Register(),
-* Init() - Takes the address of the main OBJ
-* Register() - 
+* You have Init(), PreRegister() Register(),
+* Constructor() - Sets class flags
+* Init() - Passes main OBJ pointer to internal ptr
+* PreRegister() - Sets OBJ status flags
+* Register() - Sets/runs the internal logic, depends on the class
 */
 
 
@@ -24,15 +26,15 @@ CController::CController() {
 }
 
 CController::~CController() {
-    delete pCtl;
+    delete ptrCtl;
     Serial.println("CController() deconstructor called! Well done!");
 }
 
 bool CController::Init(OBJ_CONTROLLER &Ctl) { 
-    pCtl = &Ctl;
+    ptrCtl = &Ctl;
 
-    // pCtl = &pSys->Controller;           // pass Controller's addr to static pointer to Ctl, defined 
-    // pCtl->StatusCTL.statusCTL = STS_INIT;       // set controller state to INIT, will be checked by CController
+    // ptrCtl = &pSys->Controller;           // pass Controller's addr to static pointer to Ctl, defined 
+    // ptrCtl->StatusCTL.statusCTL = STS_INIT;       // set controller state to INIT, will be checked by CController
     return bInit;
 }
 
@@ -42,26 +44,26 @@ bool CController::Preregister() {
         return false;
     }
     bInit = true;
-    pCtl->StatusCTL.bRegistered  = true;
-    pCtl->StatusCTL.connectedDev = 0;
-    pCtl->StatusCTL.idxCTL       = 0;
-    pCtl->StatusCTL.statusCTL    = STS_INIT;
-    pCtl->StatusCTL.netCTL       = NET_STS_DISABLED;
+    ptrCtl->StatusCTL.bRegistered  = true;
+    ptrCtl->StatusCTL.connectedDev = 0;
+    ptrCtl->StatusCTL.idxCTL       = 0;
+    ptrCtl->StatusCTL.statusCTL    = STS_INIT;
+    ptrCtl->StatusCTL.netCTL       = NET_STS_DISABLED;
     Serial.println("Controller Init() successful.");
     return true;
 }
 
 bool CController::Register() {
-    if (!pCtl->bInUse  && pCtl->StatusCTL.statusCTL != STS_INIT )
+    if (!ptrCtl->bInUse  && ptrCtl->StatusCTL.statusCTL != STS_INIT )
     {
         Serial.println("You moron, CTL is NOT in use! Fix your shit!");
         return false;
     }
     bRegistered = true;
-    pCtl->StatusCTL.idxCTL = totalCtl++;
-    pCtl->StatusCTL.statusCTL = STS_EN;
-    // pDev = &pCtl->DeviceIO;
-    Serial.printf("New Controller Registered, NAME: %s , Index: %d \n", pCtl->Name, pCtl->StatusCTL.idxCTL);
+    ptrCtl->StatusCTL.idxCTL = totalCtl++;
+    ptrCtl->StatusCTL.statusCTL = STS_EN;
+    // ptrDev = &ptrCtl->DeviceIO;
+    Serial.printf("New Controller Registered, NAME: %s , Index: %d \n", ptrCtl->Name, ptrCtl->StatusCTL.idxCTL);
     return bRegistered;
 }
 
@@ -79,21 +81,20 @@ CDeviceIO::CDeviceIO() {
 }
 
 CDeviceIO::~CDeviceIO() {
-    delete pDev;
+    delete ptrDev;
     Serial.println("CDeviceIO() deconstructor called, enjoy!");
 }
 
-void CDeviceIO::Init() {
-    pDev->statusIO.bRegistered      = false;
-    pDev->statusIO.idxIO            = 0;
-    pDev->statusIO.portType         = PORT_TYPE_DEFAULT;
-    pDev->statusIO.ioType           = TYPE_DEFAULT;
-    pDev->statusIO.SignalType       = NODE_TYPE_DEFAULT;
+void CDeviceIO::Init(OBJ_DEVICEIO *pDev) {
+    ptrDev->statusIO.bRegistered      = false;
+    ptrDev->statusIO.idxIO            = 0;
+    ptrDev->statusIO.portType         = PORT_TYPE_DEFAULT;
+    ptrDev->statusIO.ioType           = TYPE_DEFAULT;
+    ptrDev->statusIO.SignalType       = NODE_TYPE_DEFAULT;
     Serial.println(F("Device Init() successful."));
 }
 
-bool CDeviceIO::AddIO(OBJ_DEVICEIO *DevIO) {
-    if(DevIO->bInUse)
+bool CDeviceIO::AddIO(OBJ_DEVICEIO_SETTING *DevIO_Setting) {
     return 0;
 }
 
@@ -117,13 +118,13 @@ CSystem::CSystem() {
 CSystem::~CSystem() {
     bInit = false;
     bRegistered = false;
-    delete pSys;
+    delete ptrSys;
     Serial.println("Congrats, deconstructor called!!");
 }
 
 void CSystem::Init(OBJ_SYSTEM Sys) {
     bInit = true;
-    pSys = &Sys;
+    ptrSys = &Sys;
     // memcpy(pSys, &Sys, sizeof(OBJ_SYSTEM));
     Serial.println("\n");
     Serial.println('\n');
@@ -131,17 +132,17 @@ void CSystem::Init(OBJ_SYSTEM Sys) {
     Serial.println('\n');
 
     // Print all Project specific data
-    Serial.printf("Name: %s \n", pSys->Name);
-    Serial.printf("InitDate: %s \n", pSys->InitDay0);
-    Serial.printf("Project Name: %s \n", pSys->Info.ProjectName);
-    Serial.printf("Framework version: %s \n", pSys->Info.Framework);
-    Serial.printf("Author Name: %s \n", pSys->Info.Author);
+    Serial.printf("Name: %s \n", ptrSys->Name);
+    Serial.printf("InitDate: %s \n", ptrSys->InitDay0);
+    Serial.printf("Project Name: %s \n", ptrSys->Info.ProjectName);
+    Serial.printf("Framework version: %s \n", ptrSys->Info.Framework);
+    Serial.printf("Author Name: %s \n", ptrSys->Info.Author);
     Serial.println('\n');
 
     
     // convert below to CController Init() method
-    pCtl = &pSys->Controller;           // pass Controller's addr to static pointer to Ctl, defined 
-    pCtl->StatusCTL.statusCTL = STS_INIT;       // set controller state to INIT, will be checked by CController
+    ptrCtl = &ptrSys->Controller;           // pass Controller's addr to static pointer to Ctl, defined 
+    ptrCtl->StatusCTL.statusCTL = STS_INIT;       // set controller state to INIT, will be checked by CController
 
     Serial.println("\n");
     Serial.println('\n');

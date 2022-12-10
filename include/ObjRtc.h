@@ -11,24 +11,25 @@ typedef struct {
   SCAN_RATE            scanRate;    // Device scan rate
   CTL_LIST             masterCTL;   // Connected Controller
   byte                 PIN;         // Connected PIN
-} OBJ_SETTING_DEVICEIO;
+} OBJ_DEVICEIO_SETTING;
 
 typedef struct {
   bool                 bRegistered;
   uint16_t             idxIO;
+  SYS_STATE            currentState;
   PORT_TYPE            portType;
   IO_TYPE              ioType;        // Type: Input or output
   NODE_TYPE            SignalType;    // Digital or Analog
-  SYS_STATE            currentState;
-} OBJ_STATUS_DEVICEIO;
+} OBJ_DEVICEIO_STATUS;
 
 /* Control IO OBJ */
 typedef struct {
   bool                 bInUse;                     // flag to check if the IO is in use
   bool                 bisHardware;                // flag to check if the module is hardware
+  DEVICE_LIST          devEnum;
   char                 Name[MAX_NAME_LENGTH];      // Name of the sensor
-  OBJ_STATUS_DEVICEIO  statusIO;                   // OBJ to monitor status
-  OBJ_SETTING_DEVICEIO ioSetting;                  // OBJ to define module settings
+  OBJ_DEVICEIO_STATUS  statusIO;                   // OBJ to monitor status
+  OBJ_DEVICEIO_SETTING ioSetting;                  // OBJ to define module settings
 } OBJ_DEVICEIO;
 
 /*************************************************************/
@@ -39,7 +40,7 @@ typedef struct {
   bool                  bComm;       // PubSub comm
   bool                  bHasHAT;     // Connected HAT
   bool                  bHasIPower;  // Intelligent power supply with feedback
-} OBJ_SETTING_CONTROLLER;
+} OBJ_CONTROLLER_SETTING;
 
 typedef struct {
   bool                      bRegistered;
@@ -47,7 +48,7 @@ typedef struct {
   byte                      connectedDev;
   SYS_STATE                 statusCTL;
   NET_STATE                 netCTL;
-} OBJ_STATUS_CONTROLLER;
+} OBJ_CONTROLLER_STATUS;
 
 /* Controller OBJ */
 typedef struct {
@@ -55,8 +56,8 @@ typedef struct {
   char                        Name[MAX_NAME_LENGTH];  // Name of the Controller
   CONTROLLER_TYPE             Type;                   // Type of Controller
   uint16_t                    PinsUsed;               // Init: Total Number of GPIO pins used, set to -1 for no sensor
-  OBJ_STATUS_CONTROLLER       StatusCTL;
-  OBJ_SETTING_CONTROLLER      SettingCTL;
+  OBJ_CONTROLLER_STATUS       StatusCTL;
+  OBJ_CONTROLLER_SETTING      SettingCTL;
   OBJ_DEVICEIO                DeviceIO[DEVICE_MAX_ASIZE - 1];
 } OBJ_CONTROLLER;
 

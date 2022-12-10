@@ -94,7 +94,7 @@ enum CTL_LIST {
     CTL_00_ESP8266,         // ESP8266 devKit TEST
     // CTL_01_NONE,
     // CTL_02_NONE
-    CTL_MAX_ASIZE           // MUST BE LAST!!
+    CTL_MAX_ASIZE           // !MUST BE LAST!
 };
 
 enum DEVICE_LIST {
@@ -105,7 +105,7 @@ enum DEVICE_LIST {
     DEVICE_TEST_OUT_1,
     DEVICE_TEST_OUT_2,
 
-    DEVICE_MAX_ASIZE
+    DEVICE_MAX_ASIZE        // !MUST BE LAST!
 };
 
 
@@ -147,7 +147,7 @@ enum GPIO_00 {
     CTL00_GPIO_30_NONE = 29,
     CTL00_GPIO_31_NONE = 30,
     CTL00_GPIO_32_NONE = 31,
-    CTL00_GPIO_ASIZE                 // MUST BE LAST!!
+    CTL00_GPIO_ASIZE                 // !MUST BE LAST!
 };
 
 //----------------------------------------------------

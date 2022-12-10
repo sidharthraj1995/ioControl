@@ -14,14 +14,14 @@
         // 0,                  // byte                 connectedDev;
         // STS_INIT,           // SYS_STATE            statusCTL;
         // NET_STS_DISABLED,   // NET_STATE             netCTL;
-    },        // OBJ_STATUS_CONTROLLER       StatusCTL;
+    },        // OBJ_CONTROLLER_STATUS       StatusCTL;
     {
         LOG_NONE,       // LOG_STATE             logging;
         false,          // bool                  bNetwork;    // Network
         false,          // bool                  bComm;       // PubSub comm
         false,          // bool                  bHasHAT;     // Connected HAT
         false,          // bool                  bHasIPower;  // Intelligent power supply with feedback
-    },        // OBJ_SETTING_CONTROLLER      SettingCTL;
+    },        // OBJ_CONTROLLER_SETTING      SettingCTL;
     {}                     // OBJ_DEVICEIO                DeviceIO[DEVICE_MAX_ASIZE - 1];
 }           // OBJ_CONTROLLER
 

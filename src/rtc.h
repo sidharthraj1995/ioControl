@@ -29,7 +29,8 @@ public:
     bool Init(OBJ_CONTROLLER &Ctl);
     bool Preregister();         // set all STATUS values to default
     bool Register();
-    bool AddIO();
+    
+    // bool AddIO();
     // virtual bool AddIO(OBJ_DEVICEIO *DevIO) = 0;
 };
 
@@ -53,9 +54,9 @@ protected:
 public:
     CDeviceIO();
     ~CDeviceIO();
-    void Init();
-    // bool Register();
-    bool AddIO(OBJ_DEVICEIO *DevIO);
+    void Init(OBJ_DEVICEIO *pDev);
+    bool Register();
+    bool AddIO(OBJ_DEVICEIO_SETTING *DevIO_Setting);
 
     uint16_t    QtyDevices;
 };
@@ -75,6 +76,7 @@ public:
     CSystem();
     ~CSystem();
     void Init(OBJ_SYSTEM Sys);
+    void Register();
     // bool Register();
 
 
