@@ -85,6 +85,19 @@ enum PIN_MODE
     PIN_MODE_INPUT_PULLDOWN
 };
 
+
+/*************************
+ *  GENERAL NODE TYPES   *
+ *************************/
+enum NODE_TYPE
+{
+    NODE_TYPE_DEFAULT = 0,
+    NODE_TYPE_DIGITAL,
+    NODE_TYPE_ANALOG
+};
+
+
+
 /**************************
  * GENERAL HARDWARE TYPES *
  **************************/
@@ -103,15 +116,6 @@ enum CONTROLLER_TYPE
     CTL_TYPE_ARDUINO_LEONARDO // Arduino Leonardo
 };
 
-/*************************
- *  GENERAL NODE TYPES   *
- *************************/
-enum NODE_TYPE
-{
-    NODE_TYPE_DEFAULT = 0,
-    NODE_TYPE_DIGITAL,
-    NODE_TYPE_ANALOG
-};
 
 
 

@@ -7,30 +7,33 @@
 /*************************************************************/
 
 typedef struct {
+  bool                 bRegistered;
+  uint8_t              idxIO;
+  SYS_STATE            currentState;
   PIN_MODE             pinMode;     // Specific the mode type
-  SCAN_RATE            scanRate;    // Device scan rate
-  CTL_LIST             masterCTL;   // Connected Controller
-  byte                 PIN;         // Connected PIN
-} OBJ_DEVICEIO_SETTING;
+  IO_TYPE              ioType;        // Type: Input or output
+  NODE_TYPE            nodeType;    // Digital or Analog
+} OBJ_DEVICEIO_STATUS;
 
 typedef struct {
-  bool                 bRegistered;
-  uint16_t             idxIO;
-  SYS_STATE            currentState;
+  DEVICE_LIST          devEnum;
+  char                 Name[MAX_NAME_LENGTH];      // Name of the sensor
+  int8_t               pin;                         // GPIO pin number
   PORT_TYPE            portType;
-  IO_TYPE              ioType;        // Type: Input or output
-  NODE_TYPE            SignalType;    // Digital or Analog
-} OBJ_DEVICEIO_STATUS;
+  SCAN_RATE            scanRate;
+  OBJ_DEVICEIO_STATUS  statusIO;                   // OBJ to monitor status
+} OBJ_DEVICES;
 
 /* Control IO OBJ */
 typedef struct {
   bool                 bInUse;                     // flag to check if the IO is in use
   bool                 bisHardware;                // flag to check if the module is hardware
-  DEVICE_LIST          devEnum;
-  char                 Name[MAX_NAME_LENGTH];      // Name of the sensor
-  OBJ_DEVICEIO_STATUS  statusIO;                   // OBJ to monitor status
-  OBJ_DEVICEIO_SETTING ioSetting;                  // OBJ to define module settings
+  CTL_LIST             masterCTL;                 // Connected Controller
+  OBJ_DEVICES          connectedDev[DEVICE_MAX_ASIZE - 1];  
 } OBJ_DEVICEIO;
+
+
+
 
 /*************************************************************/
 
@@ -44,8 +47,8 @@ typedef struct {
 
 typedef struct {
   bool                      bRegistered;
-  byte                      idxCTL;
-  byte                      connectedDev;
+  uint8_t                   idxCTL;
+  uint8_t                   connectedDev;
   SYS_STATE                 statusCTL;
   NET_STATE                 netCTL;
 } OBJ_CONTROLLER_STATUS;
@@ -58,7 +61,7 @@ typedef struct {
   uint16_t                    PinsUsed;               // Init: Total Number of GPIO pins used, set to -1 for no sensor
   OBJ_CONTROLLER_STATUS       StatusCTL;
   OBJ_CONTROLLER_SETTING      SettingCTL;
-  OBJ_DEVICEIO                DeviceIO[DEVICE_MAX_ASIZE - 1];
+  OBJ_DEVICEIO                DeviceIO;
 } OBJ_CONTROLLER;
 
 /*************************************************************/

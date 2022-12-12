@@ -8,7 +8,8 @@ TYPEDEF_NAME
 namespace_name
 Class_name Struct_name 
 Enum_name 
-function_name var_name 
+function_name 
+var_name 
 var_names[]
 
 */
