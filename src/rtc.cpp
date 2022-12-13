@@ -107,14 +107,13 @@ CDeviceIO::~CDeviceIO() {
     delete ptrDev;
     Serial.println("CDeviceIO() deconstructor called, enjoy!");
 }
-/**
- * CDeviceIO 
- * 
- * @param  {OBJ_DEVICES*} pDev : 
- */
-void CDeviceIO::Init(OBJ_DEVICES *pDev) {
-    Serial.println(F("Device Init() successful."));
-}
+
+
+// void CDeviceIO::Init(OBJ_DEVICES *pDev) {
+//     Serial.println(F("Device Init() successful."));
+// }
+
+
 /**
  * CDeviceIO 
  * 
@@ -130,9 +129,68 @@ bool CDeviceIO::PreRegister(OBJ_DEVICEIO_STATUS *pDevStatus) {
     pDevStatus->bRegistered  = false;
     pDevStatus->idxIO        = -1;
     pDevStatus->currentState = STS_DEFAULT;
-    pDevStatus->pinMode      = PIN_MODE_DEFAULT;
-    pDevStatus->ioType       = TYPE_DEFAULT;
-    pDevStatus->nodeType     = NODE_TYPE_DEFAULT; 
+    return true;
+}
+
+bool CDeviceIO::Register(OBJ_DEVICES *pDev) {
+    
+    return false;
+}
+
+bool CDeviceIO::SetPin(int8_t pin, PIN_MODE mode) {
+    switch (mode)
+    {
+    case PIN_MODE_OUTPUT:
+        pinMode(pin, OUTPUT);
+        break;
+    
+    case PIN_MODE_INPUT:
+        pinMode(pin, INPUT);
+        break;
+    
+    case PIN_MODE_INPUT_PULLDOWN:
+        pinMode(pin, INPUT_PULLDOWN_16);
+        break;
+    
+    case PIN_MODE_INPUT_PULLUP:
+        pinMode(pin, INPUT_PULLUP);
+        break;
+    
+    default:
+        Serial.println(F("Unable to AddIO(), checck your shit!!"));
+        return false;
+    }
+    return true;
+}
+
+bool CDeviceIO::AddIO(OBJ_DEVICES *devIO) {
+    if(!bRegister) {
+        Serial.println(F("Cannot add IO since class is not registered!"));
+        return false;
+    }
+    devIO->statusIO.idxIO = ++QtyDevices;
+    devIO->statusIO.bRegistered = CDeviceIO::SetPin(devIO->pin, devIO->pinMode);
+    Serial.printf("New IO registered, Name: %s | Idx: %d", devIO->Name, devIO->statusIO.idxIO);
+    return true;
+}
+
+bool CDeviceIO::ReadPin(int8_t pin) {
+    return (digitalRead(pin));
+}
+
+bool CDeviceIO::ReadIO(OBJ_DEVICES *devIO) {
+    if (!(devIO->statusIO.bRegistered))
+    {
+        Serial.println(F("Cannot read IO since the device is not registered!"));
+        return false;
+    }
+    // devIO->statusIO.currentState = CDeviceIO::ReadPin(devIO->pin);
+    if (!(CDeviceIO::ReadPin(devIO->pin)))
+        devIO->statusIO.currentState = STS_OFF;
+    else
+        devIO->statusIO.currentState = STS_ON;
+
+    Serial.printf("IO scan successful, Name: %s  |  State: %s", devIO->Name, devIO->statusIO.currentState);
     return true;
 }
 
@@ -181,8 +239,8 @@ void CSystem::Init(OBJ_SYSTEM Sys) {
     Serial.println(F("\n"));
 
 
-    ptrCtl = &ptrSys->Controller;           // pass Controller's addr to static pointer to Ctl, defined 
-    ptrCtl->StatusCTL.statusCTL = STS_INIT;       // set controller state to INIT, will be checked by CController
+    // ptrCtl = &ptrSys->Controller;           // pass Controller's addr to static pointer to Ctl, defined 
+    // ptrCtl->StatusCTL.statusCTL = STS_INIT;       // set controller state to INIT, will be checked by CController
 
     Serial.println("\n");
     Serial.println('\n');

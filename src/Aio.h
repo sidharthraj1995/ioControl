@@ -1,5 +1,10 @@
-#ifndef __STARTSTOP_H__
-#define __STARTSTOP_H__
+#ifndef __AIO_H__
+#define __AIO_H__
+
+
+#include "rtc.h"
+
+
 
 
 class StartStop
@@ -18,4 +23,4 @@ public:
 
 
 
-#endif // __STARTSTOP_H__
+#endif // __AIO_H__

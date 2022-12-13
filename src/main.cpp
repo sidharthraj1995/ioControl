@@ -3,21 +3,21 @@
  *      * AND IMPROVE PROGRAMMING SKILLS      *
  **********************************************/
 // #include <Arduino.h>
-#include "rtc.h"
 
+#include "Aio.h"
 
 // CSystem ProjSys;
 
 OBJ_SYSTEM Obj_sys = {
-    "Arkham Labs",  // char                Name[MAX_NAME_LENGTH];
-    "2022-11-28",   // char                InitDay0[MAX_DATE_LENGTH];
-    {
+    "Arkham Labs",              // char        Name[MAX_NAME_LENGTH];
+    "2022-11-28",               // char        InitDay0[MAX_DATE_LENGTH];
+    {       // OBJ_PROJECT_INFO
         "aioControl",           // char        ProjectName[MAX_NAME_LENGTH];
         "Arkham",               // char        Author[MAX_NAME_LENGTH];
         "aioControl v0.6",      // char        Framework[MAX_NAME_LENGTH];
-    },              // OBJ_PROJECT_INFO
-    #include "DefSystem.h"  // OBJ_CONTROLLER      Controller[CTL_MAX_ASIZE - 1];
-};                      // OBJ_SYSTEM
+    },
+    #include "DefSystem.h"      // OBJ_CONTROLLER      Controller[CTL_MAX_ASIZE - 1];
+};    // OBJ_SYSTEM
 
 
 

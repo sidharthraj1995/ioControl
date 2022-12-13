@@ -10,16 +10,16 @@ typedef struct {
   bool                 bRegistered;
   uint8_t              idxIO;
   SYS_STATE            currentState;
-  PIN_MODE             pinMode;     // Specific the mode type
-  IO_TYPE              ioType;        // Type: Input or output
-  NODE_TYPE            nodeType;    // Digital or Analog
+  // IO_TYPE              ioType;        // Type: Input or output
+  // NODE_TYPE            nodeType;    // Digital or Analog
 } OBJ_DEVICEIO_STATUS;
 
 typedef struct {
   DEVICE_LIST          devEnum;
   char                 Name[MAX_NAME_LENGTH];      // Name of the sensor
   int8_t               pin;                         // GPIO pin number
-  PORT_TYPE            portType;
+  PIN_MODE             pinMode;     // Specific the mode type
+  // PORT_TYPE            portType;
   SCAN_RATE            scanRate;
   OBJ_DEVICEIO_STATUS  statusIO;                   // OBJ to monitor status
 } OBJ_DEVICES;

@@ -39,10 +39,11 @@ public:
 /* This is where you define your Devices
 and IOs.
 Derived class */ 
-class CDeviceIO
+class CDeviceIO //: public CController
 {
 private:
-    
+    bool SetPin(int8_t pin, PIN_MODE mode);
+    bool ReadPin(int8_t pin);
 protected:
     bool            bInit;
     bool            bRegister;
@@ -51,11 +52,12 @@ protected:
 public:
     CDeviceIO();
     ~CDeviceIO();
-    void Init(OBJ_DEVICES *pDev);
+    // void Init(OBJ_DEVICES *pDev);
     bool PreRegister(OBJ_DEVICEIO_STATUS *pDevStatus);
-    bool Register();
-    // bool AddIO(OBJ_DEVICEIO_SETTING *DevIO_Setting);
-    bool ScanIO();
+    bool Register(OBJ_DEVICES *pDev);
+
+    bool AddIO(OBJ_DEVICES *devIO);
+    bool ReadIO(OBJ_DEVICES *devIO);
 };
 
 
