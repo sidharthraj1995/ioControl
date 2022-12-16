@@ -8,7 +8,6 @@
 <!-- ## 1.1. File tree 
 ├─ include
 │  ├─ Alert.h
-│  ├─ ControlIO.h
 │  ├─ Hardware.cpp
 │  ├─ Hardware.h
 │  ├─ Logging.h

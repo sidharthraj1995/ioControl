@@ -1,7 +1,6 @@
 #ifndef A_OBJ_RTC_h
 #define A_OBJ_RTC_h
 
-#include "ControlIO.h"
 #include "enum.h"
 
 /*************************************************************/
