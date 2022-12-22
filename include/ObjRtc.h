@@ -3,7 +3,8 @@
 
 #include "enum.h"
 
-/*************************************************************/
+/*================================ DeviceIO ==============================*/
+
 
 typedef struct {
   bool                 bRegistered;
@@ -16,9 +17,8 @@ typedef struct {
 typedef struct {
   DEVICE_LIST          devEnum;
   char                 Name[MAX_NAME_LENGTH];      // Name of the sensor
-  int8_t               pin;                         // GPIO pin number
+  GPIO_ENUM            pin;                         // GPIO pin number
   PIN_MODE             pinMode;     // Specific the mode type
-  // PORT_TYPE            portType;
   SCAN_RATE            scanRate;
   OBJ_DEVICEIO_STATUS  statusIO;                   // OBJ to monitor status
 } OBJ_DEVICES;
@@ -34,7 +34,8 @@ typedef struct {
 
 
 
-/*************************************************************/
+/*================================ Controller ==============================*/
+
 
 typedef struct {
   LOG_STATE             logging;
@@ -63,7 +64,10 @@ typedef struct {
   OBJ_DEVICEIO                DeviceIO;
 } OBJ_CONTROLLER;
 
-/*************************************************************/
+
+
+/*================================ Project ==============================*/
+
 
 struct OBJ_PROJECT_INFO {
   char                   ProjectName[MAX_NAME_LENGTH];
