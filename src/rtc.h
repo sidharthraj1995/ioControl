@@ -39,7 +39,7 @@ public:
 /* This is where you define your Devices
 and IOs.
 Derived class */ 
-class CDeviceIO //: public CController
+class CDeviceIO : public CController
 {
 private:
     bool SetPin(int8_t pin, PIN_MODE mode);
@@ -76,7 +76,7 @@ public:
     CSystem();
     ~CSystem();
     void Init(OBJ_SYSTEM Sys);
-    bool Register();
+    bool Register(OBJ_SYSTEM *Sys);
     // bool PreRegister();
 
 };

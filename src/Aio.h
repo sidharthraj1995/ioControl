@@ -6,16 +6,16 @@
 
 
 
-
 class StartStop
 {
 private:
+    CController     *pCtrl;
     
 public:
     StartStop();
     ~StartStop();
 
-    void Init();
+    void Init(OBJ_SYSTEM Sys);
     void Start();       // Start the system; run in Setup; checks and validates all the systems
     void Run();         // Run in Loop ?
     void Update();      // Update status; run in loop?

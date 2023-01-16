@@ -16,6 +16,8 @@ static OBJ_DEVICEIO       *ptrDev;
 
 
 
+#define NUM_GPIO_PINS 35
+
 //------------- Controller  START ------------------//
 
 /* CController Class Constructor
@@ -109,11 +111,6 @@ CDeviceIO::~CDeviceIO() {
 }
 
 
-// void CDeviceIO::Init(OBJ_DEVICES *pDev) {
-//     Serial.println(F("Device Init() successful."));
-// }
-
-
 /**
  * CDeviceIO 
  * 
@@ -174,25 +171,40 @@ bool CDeviceIO::AddIO(OBJ_DEVICES *devIO) {
     return true;
 }
 
+
+
 bool CDeviceIO::ReadPin(int8_t pin) {
-    return (digitalRead(pin));
+    if(pin < 0 || pin > NUM_GPIO_PINS) {
+        Serial.println(F("Error: Invalid pin number"));
+        return false;
+    }
+    pinMode(pin, INPUT);
+    int8_t pinState = digitalRead(pin);
+    if (pinState == -1)
+    {
+        Serial.println(F("Error: Failed to read pin"));
+        return false;
+    }
+    return (pinState = HIGH);
 }
 
 bool CDeviceIO::ReadIO(OBJ_DEVICES *devIO) {
-    if (!(devIO->statusIO.bRegistered))
-    {
-        Serial.println(F("Cannot read IO since the device is not registered!"));
+    if (!devIO->statusIO.bRegistered) {
+        Serial.println(F("Error: Device is not registered"));
         return false;
     }
-    // devIO->statusIO.currentState = CDeviceIO::ReadPin(devIO->pin);
-    if (!(CDeviceIO::ReadPin(devIO->pin)))
-        devIO->statusIO.currentState = STS_OFF;
-    else
-        devIO->statusIO.currentState = STS_ON;
+    bool pinState = CDeviceIO::ReadPin(devIO->pin);
+    if (pinState == -1) {
+        Serial.println(F("Error: Failed to read pin"));
+        return false;
+    }
+    devIO->statusIO.currentState = (pinState) ? STS_ON : STS_OFF;
 
-    Serial.printf("IO scan successful, Name: %s  |  State: %s", devIO->Name, devIO->statusIO.currentState);
+    Serial.printf("IO scan successful, Name: %s  |  State: %s\n", devIO->Name, (devIO->statusIO.currentState == STS_ON) ? "ON" : "OFF");
     return true;
 }
+
+
 
 //------------- DeviceIO  END ------------------//
 
@@ -232,15 +244,12 @@ CSystem::~CSystem() {
 void CSystem::Init(OBJ_SYSTEM Sys) {
     bInit = true;
     ptrSys = &Sys;
-    // memcpy(pSys, &Sys, sizeof(OBJ_SYSTEM));
     Serial.println(F("\n"));
     Serial.println(F("\n"));
     Serial.println(F("New system Init() started!"));
     Serial.println(F("\n"));
 
 
-    // ptrCtl = &ptrSys->Controller;           // pass Controller's addr to static pointer to Ctl, defined 
-    // ptrCtl->StatusCTL.statusCTL = STS_INIT;       // set controller state to INIT, will be checked by CController
 
     Serial.println("\n");
     Serial.println('\n');
@@ -255,29 +264,19 @@ void CSystem::Init(OBJ_SYSTEM Sys) {
  * 
  * @return {bool}  : 
  */
-bool CSystem::Register() {
+bool CSystem::Register(OBJ_SYSTEM *Sys) {
     // Print all Project specific data
-    Serial.printf("Name: %s \n", ptrSys->Name);
-    Serial.printf("InitDate: %s \n", ptrSys->InitDay0);
-    Serial.printf("Project Name: %s \n", ptrSys->Info.ProjectName);
-    Serial.printf("Framework version: %s \n", ptrSys->Info.Framework);
-    Serial.printf("Author Name: %s \n", ptrSys->Info.Author);
-    Serial.println('\n');
     bRegistered = true;
+    Serial.printf("Name: %s \n", Sys->Name);
+    Serial.printf("InitDate: %s \n", Sys->InitDay0);
+    Serial.printf("Project Name: %s \n", Sys->Info.ProjectName);
+    Serial.printf("Framework version: %s \n", Sys->Info.Framework);
+    Serial.printf("Author Name: %s \n", Sys->Info.Author);
+    Serial.println('\n');
     return bRegistered;
 }
 
 
-// bool CSystem::PreRegister() {
-//     // Print all Project specific data
-//     Serial.printf("Name: %s \n", ptrSys->Name);
-//     Serial.printf("InitDate: %s \n", ptrSys->InitDay0);
-//     Serial.printf("Project Name: %s \n", ptrSys->Info.ProjectName);
-//     Serial.printf("Framework version: %s \n", ptrSys->Info.Framework);
-//     Serial.printf("Author Name: %s \n", ptrSys->Info.Author);
-//     Serial.println('\n');
-//     return true;
-// }
 
 //------------- System  END ------------------------//
 
