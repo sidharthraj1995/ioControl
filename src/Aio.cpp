@@ -6,29 +6,29 @@ CDeviceIO   *cdev;
 
 
 // Constructor - calls rtc constructors and passes required args 
-StartStop::StartStop() {
+Aio::Aio() {
 }
 
-StartStop::~StartStop() {
+Aio::~Aio() {
     // delete *cctl;
     // delete *csys;
     // delete *cdev;
 }
 
-void StartStop::Init(OBJ_SYSTEM Sys) {
+void Aio::Init(OBJ_SYSTEM Sys) {
     csys->Init(Sys);
     // cctl->Init()
     
 }
 
-void StartStop::Start() {
+void Aio::Start() {
 
 }
 
-void StartStop::Run() {
+void Aio::Run() {
     
 }
 
-void StartStop::Update() {
+void Aio::Update() {
 
 }

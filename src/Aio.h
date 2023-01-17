@@ -6,14 +6,14 @@
 
 
 
-class StartStop
+class Aio
 {
 private:
     CController     *pCtrl;
     
 public:
-    StartStop();
-    ~StartStop();
+    Aio();
+    ~Aio();
 
     void Init(OBJ_SYSTEM Sys);
     void Start();       // Start the system; run in Setup; checks and validates all the systems

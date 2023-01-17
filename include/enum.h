@@ -30,6 +30,10 @@
 // Max quantity of allowed sensors to be connected to a controller simulteneously
 #define MAX_QTY_SENSOR 5
 
+// Max quantity of GPIO pins
+#define NUM_GPIO_PINS 35
+
+
 /* DO NOT CHANGE ANY DEFINEs BELOW */
 
 /**************************
@@ -78,6 +82,18 @@ enum SCAN_RATE {
 };
 
 
+enum MESSAGE_TYPE {
+    MESSAGE = 0,
+    ERROR
+};
+
+enum MESSAGE_MODULE {
+    SYSTEM = 0,
+    CONTROLLER,
+    DEVICE,
+    RTC,
+    AIO
+};
 
 
 /******************

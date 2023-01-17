@@ -16,8 +16,6 @@ static OBJ_DEVICEIO       *ptrDev;
 
 
 
-#define NUM_GPIO_PINS 35
-
 //------------- Controller  START ------------------//
 
 /* CController Class Constructor
@@ -31,6 +29,7 @@ CController::~CController() {
     delete ptrCtl;
     Serial.println("CController() deconstructor called! Well done!");
 }
+
 /**
  * CController 
  * 
@@ -44,6 +43,7 @@ bool CController::Init(OBJ_CONTROLLER *Ctl) {
     // ptrCtl->StatusCTL.statusCTL = STS_INIT;       // set controller state to INIT, will be checked by CController
     return bInit;
 }
+
 /**
  * CController 
  * 
@@ -63,6 +63,7 @@ bool CController::Preregister(OBJ_CONTROLLER_STATUS *pCtlStatus) {
     Serial.println("Controller PreRegistration() successful. All status flags set to default");
     return true;
 }
+
 /**
  * CController 
  * 
@@ -70,12 +71,10 @@ bool CController::Preregister(OBJ_CONTROLLER_STATUS *pCtlStatus) {
  * @return {bool}                                : 
  */
 bool CController::Register(OBJ_CONTROLLER_SETTING *pCtlSetting) {
-    if (!ptrCtl->bInUse  && ptrCtl->StatusCTL.statusCTL != STS_INIT )
-    {
-        Serial.println("You moron, CTL is NOT in use! Fix your shit!");
+    if (ptrCtl->bInUse || ptrCtl->StatusCTL.statusCTL == STS_INIT) {
+        Serial.println("Error: Controller is already in use.");
         return false;
     }
-    // bRegistered                 = true; 
     ptrCtl->StatusCTL.idxCTL    = totalCtl++;
     ptrCtl->StatusCTL.statusCTL = STS_EN;
     // ptrDev = &ptrCtl->DeviceIO;
@@ -101,6 +100,7 @@ CDeviceIO::CDeviceIO() {
     bRegister  = false;
     QtyDevices = -1;
 }
+
 /**
  * CDeviceIO::~CDeviceIO 
  * 
@@ -120,7 +120,7 @@ CDeviceIO::~CDeviceIO() {
 bool CDeviceIO::PreRegister(OBJ_DEVICEIO_STATUS *pDevStatus) {
     if (!bInit)
     {
-        Serial.println(F("Device Init() pending, terminating Device PreRegisteration!"));
+        Serial.println(F("Error: Device Init() pending, terminating Device PreRegisteration!"));
         return false;
     }
     pDevStatus->bRegistered  = false;
@@ -161,12 +161,20 @@ bool CDeviceIO::SetPin(int8_t pin, PIN_MODE mode) {
 }
 
 bool CDeviceIO::AddIO(OBJ_DEVICES *devIO) {
+    if (devIO == nullptr)
+    {
+        Serial.println(F("Error: Invalid input"));
+        return false;
+    }
     if(!bRegister) {
-        Serial.println(F("Cannot add IO since class is not registered!"));
+        Serial.println(F("Error: Class not registered"));
+        return false;
+    }
+    if(!(CDeviceIO::SetPin(devIO->pin, devIO->pinMode))) {
         return false;
     }
     devIO->statusIO.idxIO = ++QtyDevices;
-    devIO->statusIO.bRegistered = CDeviceIO::SetPin(devIO->pin, devIO->pinMode);
+    devIO->statusIO.bRegistered = true;
     Serial.printf("New IO registered, Name: %s | Idx: %d", devIO->Name, devIO->statusIO.idxIO);
     return true;
 }
@@ -226,6 +234,7 @@ CSystem::CSystem() {
 
     totalCtl = 0;
 }
+
 /**
  * CSystem::~CSystem 
  * 
@@ -236,6 +245,7 @@ CSystem::~CSystem() {
     delete ptrSys;
     Serial.println("Congrats, deconstructor called!!");
 }
+
 /**
  * CSystem 
  * 
